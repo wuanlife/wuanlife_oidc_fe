@@ -90,11 +90,18 @@ export default {
   },
   methods: {
     onSubmit () {
+      /* eslint-disable */
+      const self = this;
+      const { client_id, return_to } = this.$route.query
       signup({
         name: this.form.username,
         email: this.form.email,
-        password: this.form.password
-      }, 'https://www.baidu.com').catch(e => {
+        password: this.form.password,
+        client_id: client_id
+      }).then(res => {
+        this.$cookie.set(`${client_id}-id-token`, res['ID-Token'])
+        this.$router.push({path: return_to})
+      }).catch(e => {
         console.log(e)
       })
     }

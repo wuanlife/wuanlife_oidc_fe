@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 const Login = resolve => require.ensure([], () => resolve(require('../views/login/index')), 'Login')
 const Signup = resolve => require.ensure([], () => resolve(require('../views/signup/index')), 'Signup')
+const Authorize = resolve => require.ensure([], () => resolve(require('../views/authorize/index')), 'Authorize')
 
 Vue.use(Router)
 
@@ -37,6 +38,10 @@ export const constantRouterMap = [
   {
     path: '/signup',
     component: Signup
+  },
+  {
+    path: '/authorize',
+    component: Authorize
   },
   {
     path: '*',

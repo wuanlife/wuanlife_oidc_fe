@@ -1,27 +1,29 @@
 import fetch from 'utils/fetch'
 
-export function login ({email, password}, redirectUrl) {
+/* eslint-disable */
+export function login ({email, password, client_id}) {
   const data = {
     email,
-    password
+    password,
+    client_id
   }
   return fetch({
-    url: `/users/login?redirect_url=${redirectUrl}&nonce=keke&aud=client-12345`,
+    url: `/users/login`,
     method: 'post',
     data
   })
 }
 
-export function signup ({name, email, password}, redirectUrl) {
-  const data = new FormData()
-  data.set('name', name)
-  data.set('email', email)
-  data.set('password', password)
-
+export function signup ({name, email, password, client_id}) {
+  const data = {
+    name,
+    email,
+    password,
+    client_id
+  }
   return fetch({
-    url: `/users/register?redirect_url=${redirectUrl}&nonce=keke&aud=client-12345&response_type=code&client_id=wuanlife_movie&state=af0ifjsldkj&scope=all`,
+    url: `/users/register`,
     method: 'post',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     data
   })
 }
