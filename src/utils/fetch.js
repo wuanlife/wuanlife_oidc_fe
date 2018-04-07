@@ -1,7 +1,5 @@
 import axios from 'axios'
-import MockAdapter from 'axios-mock-adapter'
 import { MessageBox, Notification } from 'element-ui'
-import mockData from 'api/mock'
 import store from '../store'
 // import router from '../router';
 
@@ -59,11 +57,4 @@ service.interceptors.response.use(
     return Promise.reject(error.response)
   }
 )
-
-const mock = new MockAdapter(service, { delayResponse: 2000 })
-
-mockData(mock)
-if (process.env.API_MOCK === undefined || !process.env.API_MOCK) {
-  mock.restore()
-}
 export default service
