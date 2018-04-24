@@ -56,6 +56,9 @@ export default {
     }
     // 进入授权阶段
     this.authorizing = true;
+    if(client_id === 'wuan') {
+      this.authorize()
+    }
   },
   methods: {
     authorize() {
