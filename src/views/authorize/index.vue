@@ -49,7 +49,8 @@ export default {
     if (this.$cookie.get(client_id)) {
       // 检验Access-Token是否过期，如果过期则清空进入授权阶段
       await verify({accessToken: accessToken}).then(res => {
-        debugger
+        // 没过期直接跳转
+        window.location = `${redirect_uri}?access_token=${accessToken}&id_token=${idToken}`
       })
       // 如果没过期直接返回ID-token和Access-Token
 
