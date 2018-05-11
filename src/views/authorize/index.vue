@@ -56,17 +56,18 @@ export default {
 
     }
     // 进入授权阶段
-    this.authorizing = true;
     if(client_id === 'wuan') {
       this.authorize()
+      return
     }
+    this.authorizing = true;
   },
   methods: {
     authorize() {
       const { client_id, redirect_uri, response_type, state, nonce } = this.$route.query
       const idToken = this.$cookie.get(`${client_id}-id-token`)
       getAccess({scope: 'public_profile'}).then(res => {
-        this.$cookie.set(`${client_id}-access-token`, res['Access-Token'])
+        this.$cookie.set(`${client_id}-access-token`, res['Access-Token'], 7)
         window.location = `${redirect_uri}?access_token=${res['Access-Token']}&id_token=${idToken}`
       })
     }

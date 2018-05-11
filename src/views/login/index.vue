@@ -56,7 +56,7 @@ export default {
         password: this.form.password, 
         client_id: client_id
       }).then(res => {
-        this.$cookie.set(`${client_id}-id-token`, res['ID-Token'])
+        this.$cookie.set(`${client_id}-id-token`, res['ID-Token'], 7)
         this.$router.push({path: return_to})
       })
     },
