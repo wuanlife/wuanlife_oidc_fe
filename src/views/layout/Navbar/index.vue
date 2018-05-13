@@ -1,29 +1,26 @@
 <template>
   <div class="navbar">
     <div class="navbar-header">
-      <div class="logo" @click="$router.push({path: '/'})">午安影视</div>
-      <search-bar></search-bar>
+      <div class="logo" @click="$router.push({path: '/'})">午安账号</div>
       <nav-user></nav-user>
     </div>
-    <div class="navber-menu">
+    <!-- <div class="navber-menu">
       <nav-list></nav-list>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import SearchBar from './SearchBar'
 import NavUser from './NavUser'
 // import NavMenu from './NavMenu'
-import NavList from './NavList'
+// import NavList from './NavList'
 
 export default {
   components: {
-    'search-bar': SearchBar,
-    'nav-user': NavUser,
+    'nav-user': NavUser
     // 'nav-menu': NavMenu,
-    'nav-list': NavList
+    // 'nav-list': NavList
   },
   data () {
     return {
@@ -54,14 +51,13 @@ export default {
     }
   },
   mounted () {
-    // this.toWs();
   }
 }
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .navbar {
-  height: $nav-height;
+  height: 72px;
   max-width: 1260px;
   width: 100%;
   display: flex;

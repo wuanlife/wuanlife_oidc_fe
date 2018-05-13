@@ -1,12 +1,15 @@
 <template>
   <div class="nav-user">
     <div class="nav-user-logined">
-      <router-link to="" tag="span" class="nav-user-find">发现影视</router-link>
       <div>
-        <span @click="show()">
-          淘淘<icon-svg icon-class="triangle1" class="nav-user-triangle"></icon-svg>
-        </span>
-        <router-link v-if="isShow" to="" tag="span" class="logout">退出登录</router-link>
+        <el-dropdown trigger="click">
+          <span @click="show()">
+            淘淘<icon-svg icon-class="triangle1" class="nav-user-triangle"></icon-svg>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
     </div>
   </div>
@@ -30,7 +33,8 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .nav-user{
-  padding-top: 11px;
+  display: flex;
+  align-items: center;
   .nav-user-logined{
     display: flex;
     justify-content: flex-start;

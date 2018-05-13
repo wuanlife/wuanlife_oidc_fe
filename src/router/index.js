@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Layout from '../views/layout/Layout'
 
+const Index = resolve => require.ensure([], () => resolve(require('../views/login/index')), 'Index')
 const Login = resolve => require.ensure([], () => resolve(require('../views/login/index')), 'Login')
 const Signup = resolve => require.ensure([], () => resolve(require('../views/signup/index')), 'Signup')
 const Authorize = resolve => require.ensure([], () => resolve(require('../views/authorize/index')), 'Authorize')
@@ -16,21 +18,16 @@ Vue.use(Router)
   **/
 
 export const constantRouterMap = [
-  // {
-  //   path: '/',
-  //   component: Layout,
-  //   hidden: true,
-  //   redirect: '/timeline',
-  //   children: [{
-  //     path: '/timeline/:typeId',
-  //     component: Movies,
-  //     meta: { title: '午安网 - 过你想过的生活' }
-  //   }, {
-  //     path: '/timeline',
-  //     component: Movies,
-  //     meta: { title: '午安网 - 过你想过的生活' }
-  //   }]
-  // },
+  {
+    path: '/',
+    component: Layout,
+    hidden: true,
+    children: [{
+      path: '/',
+      component: Index,
+      meta: { title: '午安网 - 过你想过的生活' }
+    }]
+  },
   {
     path: '/login',
     component: Login
