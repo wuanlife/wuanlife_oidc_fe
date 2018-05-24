@@ -30,11 +30,13 @@ export const constantRouterMap = [
   },
   {
     path: '/login',
-    component: Login
+    component: Layout,
+    children: [{ path: '', name: 'login', component: Login, meta: { title: '登录 - 午安网 - 过你想过的生活' } }]
   },
   {
     path: '/signup',
-    component: Signup
+    component: Layout,
+    children: [{ path: '', name: 'signup', component: Signup, meta: { title: '注册 - 午安网 - 过你想过的生活' } }]
   },
   {
     path: '/authorize',
