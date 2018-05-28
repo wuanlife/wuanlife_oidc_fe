@@ -10,10 +10,7 @@
             <el-dropdown-item>退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-    </div>
-    <div class="login-container">
-      <span><router-link to="/signup/" class="login-container">注册</router-link></span>
-      <span><router-link to="/login/" class="login-container">登录</router-link></span>
+      </div>
     </div>
     <!-- login bar (if not logined) -->
     <div v-else class="login-container">
