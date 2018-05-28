@@ -21,7 +21,7 @@
          -->
         </el-form-item>
       </el-form>
-      <div  class="getBack" ><router-link to="/signup/" class="getBack">忘记密码?</router-link></div>
+      <div  class="getBack" ><router-link to="/signup" class="getBack">忘记密码?</router-link></div>
     </div>
   </div>
 </template>
@@ -33,7 +33,7 @@ export default {
   name: 'Login',
   data () {
     const validateEmail = (rule, value, callback) => {
-       if (value === '') {
+      if (value === '') {
         callback(new Error('请输入邮箱'))
       } else {
         callback()
@@ -41,7 +41,7 @@ export default {
     }
     const validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入密码'))
+        callback(new Error('请输入密码 '))
       } else {
         if (this.form.password !== '') {
         }
@@ -49,7 +49,7 @@ export default {
       }
     }
     return {
-      loading:false,
+      loading: false,
       form: {
         email: '',
         password: ''
@@ -69,10 +69,12 @@ export default {
       }
     }
   },
-  computed: {
-  
-  },
   mounted () {
+    const clientId = this.$route.query.client_id
+    const idToken = this.$cookie.get(`${clientId}-id-token`)
+    if (idToken !== null && idToken !== '') {
+      this.$router.push({ path: '/personalData' })
+    }
   },
   methods: {
     onSubmit (formname) {
@@ -82,11 +84,15 @@ export default {
       const { client_id, return_to } = this.$route.query
       this.loading = true
       login({
-        email: this.form.email, 
-        password: this.form.password, 
+        email: this.form.email,
+        password: this.form.password,
         client_id: client_id
       }).then(res => {
         this.$cookie.set(`${client_id}-id-token`, res['ID-Token'], 7)
+         Notification.success({
+          message: '登录成功',
+          offset: 60
+        })
         this.$router.push({path:return_to})
         this.loading = false
       }).catch(err =>{
@@ -100,14 +106,7 @@ export default {
        return false
      }
     })
-  },
-
-    jumpSignup () {
-      const { client_id, return_to } = this.$route.query
-      this.$router.push({path: 'signup', query: {return_to: return_to, client_id: client_id}})
-    }
-
-
+  }
   }
 }
 </script>

@@ -9,7 +9,7 @@
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>退出登录</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>   
+        </el-dropdown>
     </div>
     -->
     <div class="login-container">
@@ -50,7 +50,7 @@ export default {
     }
   }
 }
- /* 
+ /*
     .nav-user-logined{
     display: flex;
     justify-content: flex-start;
@@ -85,7 +85,6 @@ export default {
         background-color: rgba(255, 255, 255, 0.2);
       }
     }
-    
   }*/
 }
 </style>

@@ -5,8 +5,9 @@ import Layout from '../views/layout/Layout'
 const Index = resolve => require.ensure([], () => resolve(require('../views/login/index')), 'Index')
 const Login = resolve => require.ensure([], () => resolve(require('../views/login/index')), 'Login')
 const Signup = resolve => require.ensure([], () => resolve(require('../views/signup/index')), 'Signup')
+const personalData = resolve => require.ensure([], () => resolve(require('../views/personalData/index')), 'personalData')
 const Authorize = resolve => require.ensure([], () => resolve(require('../views/authorize/index')), 'Authorize')
-
+const userData = resolve => require.ensure([], () => resolve(require('../views/personalData/userData/index')), 'userData')
 Vue.use(Router)
 
 /**
@@ -37,6 +38,15 @@ export const constantRouterMap = [
     path: '/signup',
     component: Layout,
     children: [{ path: '', name: 'signup', component: Signup, meta: { title: '注册 - 午安网 - 过你想过的生活' } }]
+  },
+  {
+    path: '/personalData',
+    component: personalData,
+    children: [{ path: '', name: 'personalData', component: personalData, meta: { title: '1' } }]
+  },
+  {
+    path: '/userdata',
+    component: userData
   },
   {
     path: '/authorize',

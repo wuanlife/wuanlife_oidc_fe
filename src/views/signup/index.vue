@@ -42,7 +42,7 @@ export default {
       var myregName = /^[0-9a-zA-Z\u4E00-\u9FA5_]*$/
       if (value === '') {
         callback(new Error('请输入用户名'))
-      } else if(!myregName.test(value)){
+      } else if (!myregName.test(value)) {
         callback(new Error('只允许中文、数字、字母和下划线！'))
       } else {
         callback()
@@ -57,37 +57,28 @@ export default {
     }
     const validatePassword = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入密码'))  
+        callback(new Error('请输入密码'))
       } else {
         callback()
       }
     }
-   // const validatePassRepeat = (rule, value, callback) => {
-   //   if (value === '') {
-   //     callback(new Error('请再次输入密码'))
-   //   } else if (value !== this.form.password) {
-   //     callback(new Error('两次输入密码不一致!'))
-   //   } else {
-    //    callback()
-   //   }
-  // }
     return {
-      signform:'signupForm',
-      loading:false,
-      noPass:false,
+      signform: 'signupForm',
+      loading: false,
+      noPass: false,
       form: {
         email: '',
         username: '',
-        password: '',
+        password: ''
       },
       rules: {
         username: [
           { validator: validateUsername, trigger: 'blur' },
-          { min: 6,max: 18, message: '请输入6-18位字符作为昵称!', trigger: 'blur' }
+          { min: 6, max: 18, message: '请输入6-18位字符作为昵称!', trigger: 'blur' }
         ],
         email: [
           { validator: validateEmail, trigger: 'blur' },
-          { 
+          {
             type: 'email',
             message: '请输入正确的邮箱地址',
             trigger: 'blur'
@@ -97,48 +88,13 @@ export default {
           { validator: validatePassword, trigger: 'blur' },
           { min: 6, max: 20, message: '请填写6-20位密码', trigger: 'blur' }
         ]
-       // passwordRepeat: [
-       //   { validator: validatePassRepeat, trigger: 'blur' }
-       // ]
       }
     }
   },
   mounted () {
   },
-  computed:{
-    ...mapGetters(['user']) ,
-  /*
-    email(){
-      return this.form.email
-    },
-    username(){
-      return this.form.username
-    },
-    password(){
-      return this.form.password
-    }
-  */
-  },
-  watch:{
-   /*
-   email:{
-      handler(){
-        this.$refs[this.signform].validateField('email',(validMessage) =>{
-          console.log(validMessage)
-          if(validMessage){
-            this.noPass = true
-          } else {
-            this.noPass = false}
-        })
-      },
-      deep:true
-    },
-    username(){
-
-    },
-    password(){
-      }
-    */
+  computed: {
+    ...mapGetters(['user'])
   },
   methods: {
     onSubmit (formname) {
@@ -155,6 +111,10 @@ export default {
         client_id: client_id
       }).then(res => {
         this.$cookie.set(`${client_id}-id-token`, res['ID-Token'], 7)
+        Notification.success({
+          message: '注册成功',
+          offset: 60
+        })
         this.$router.push({path: return_to})
       }).catch(err => {
          Notification.error({
