@@ -14,7 +14,7 @@
     </div>
     <!-- login bar (if not logined) -->
     <div v-else class="login-container">
-      <span><router-link :to="{path: '/login'}">登录</router-link></span>
+      <span><router-link :to="{path: '/authorize?client_id=wuan&redirect_uri=//localhost:9526&response_type=code&state=maye&nonce=random'}">登录</router-link></span>
       <span><router-link :to="{path: '/signup'}">注册</router-link></span>
     </div>
   </div>
@@ -27,6 +27,7 @@ export default {
   data () {
     return {
       isShow: false
+
     }
   },
   computed: {
@@ -64,7 +65,19 @@ export default {
 .nav-user{
   display: flex;
   align-items: center;
-  .nav-user-logined{
+  .login-container {
+  color: #ffffff;
+  font-size:18px;
+  text-decoration: none;
+  span {
+    padding: 0 14px;
+    &:hover{
+      font-weight: bold;
+    }
+  }
+}
+ /*
+    .nav-user-logined{
     display: flex;
     justify-content: flex-start;
     height: 40px;
@@ -98,6 +111,6 @@ export default {
         background-color: rgba(255, 255, 255, 0.2);
       }
     }
-  }
+  }*/
 }
 </style>
