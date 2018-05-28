@@ -57,10 +57,6 @@ export const constantRouterMap = [
     component: Authorize
   },
   {
-    path: '*',
-    redirect: '/404'
-  },
-  {
     path: '/findpsw',
     name: 'findpsw',
     component: Layout,
@@ -80,14 +76,20 @@ export const constantRouterMap = [
     path: '/personal',
     name: 'personal',
     component: Layout,
+    redirect: '/personal/profile',
     children: [{
-      path: '',
+      name: 'personalTab',
+      path: ':tab',
       component: Personal,
       meta: {
         title: '个人资料',
         requestAuth: true
       }
     }]
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
 ]
 
