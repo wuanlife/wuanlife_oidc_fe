@@ -1,28 +1,18 @@
-// import Vue from 'vue'
-// import { login, signup } from 'api/auth'
-// import { putUser } from 'api/user'
-// import { storeWithExpiration } from 'utils'
-
-// const loadUser = () => {
-//   const user = storeWithExpiration.get('user')
-//   if (user && user.id) {
-//     return user
-//   }
-// }
+import Vue from 'vue'
 
 const user = {
   state: {},
   mutations: {
-    // SET_USER: (state, userInfo) => {
-    //   for (const key in userInfo) {
-    //     Vue.set(state, key, userInfo[key])
-    //   }
-    // },
-    // CLEAR_USER: state => {
-    //   for (const key in state) {
-    //     state[key] = null
-    //   }
-    // }
+    SET_USER: (state, userInfo) => {
+      for (const key in userInfo) {
+        Vue.set(state, key, userInfo[key])
+      }
+    },
+    CLEAR_USER: state => {
+      for (const key in state) {
+        state[key] = null
+      }
+    }
   },
 
   actions: {
