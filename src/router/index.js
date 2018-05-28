@@ -7,7 +7,11 @@ const Login = resolve => require.ensure([], () => resolve(require('../views/logi
 const Signup = resolve => require.ensure([], () => resolve(require('../views/signup/index')), 'Signup')
 const personalData = resolve => require.ensure([], () => resolve(require('../views/personalData/index')), 'personalData')
 const Authorize = resolve => require.ensure([], () => resolve(require('../views/authorize/index')), 'Authorize')
+
 const userData = resolve => require.ensure([], () => resolve(require('../views/personalData/userData/index')), 'userData')
+const FindPsw = resolve => require.ensure([], () => resolve(require('../views/findpsw/index')), 'FindPsw') // 找回密码
+const Changepsw = resolve => require.ensure([], () => resolve(require('../views/changepsw/index')), 'Changepsw') // 修改密码
+
 Vue.use(Router)
 
 /**
@@ -32,21 +36,20 @@ export const constantRouterMap = [
   {
     path: '/login',
     component: Layout,
-    children: [{ path: '', name: 'login', component: Login, meta: { title: '登录 - 午安网 - 过你想过的生活' } }]
+    children: [{
+      path: '/Login',
+      component: Login,
+      meta: { title: '午安网 - 过你想过的生活' }
+    }]
   },
   {
     path: '/signup',
     component: Layout,
-    children: [{ path: '', name: 'signup', component: Signup, meta: { title: '注册 - 午安网 - 过你想过的生活' } }]
-  },
-  {
-    path: '/personalData',
-    component: personalData,
-    children: [{ path: '', name: 'personalData', component: personalData, meta: { title: '1' } }]
-  },
-  {
-    path: '/userdata',
-    component: userData
+    children: [{
+      path: '/Signup',
+      component: Signup,
+      meta: { title: '午安网 - 过你想过的生活' }
+    }]
   },
   {
     path: '/authorize',
@@ -55,6 +58,22 @@ export const constantRouterMap = [
   {
     path: '*',
     redirect: '/404'
+  },
+  {
+    path: '/findpsw',
+    name: 'findpsw',
+    component: Layout,
+    redirect: '/findpsw/index',
+    hidden: true,
+    children: [{ path: 'index', component: FindPsw }]
+  },
+  {
+    path: '/changepsw',
+    name: 'changepsw',
+    component: Layout,
+    redirect: '/changepsw/index',
+    hidden: true,
+    children: [{ path: 'index', component: Changepsw, meta: { title: '修改密码 - 午安网 - 过你想过的生活' } }]
   }
 ]
 
