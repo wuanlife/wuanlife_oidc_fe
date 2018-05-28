@@ -1,0 +1,79 @@
+<template>
+  <div class="view-container movie pesonData">
+    <div class="personal-data-form" v-loading="dataloding">
+     <div class="navmenu">
+        <div  class="menuitem data" ><router-link to="" class="routeritem">个人资料</router-link></div>
+        <div  class="menuitem changepasswd" ><router-link to="" class="routeritem">修改密码</router-link></div>
+        <div  class="menuitem points" ><router-link to="" class="routeritem">积分兑换</router-link></div>
+     </div>
+     <hr class="split" />
+     <div class="show">
+     </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data () {
+    return {
+    }
+  },
+  components: {
+  },
+
+  computed: {
+  },
+
+  mounted () {},
+
+  methods: {}
+}
+</script>
+<style lang="scss" scoped>
+  .pesonData {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 135px;
+  .personal-data-form {
+     background: #ffffff;
+      width:745px ;
+      height:423px;
+      margin: 0 auto;
+      justify-content: center;
+      box-shadow: 0px 0px 2px 2px #ecedee;
+      text-align: center;
+      border-radius: 5px;
+  }
+  .navmenu{
+    margin: 0 auto;
+    height: 60px;
+    position: relative;
+  .menuitem{
+    padding-top:30px;
+    list-style: none;
+    display: inline-block;
+    font-size:18px;
+    margin-bottom:0px;
+    padding-bottom:0px;
+  }
+  .data{
+    position: absolute;
+    left:50px;
+  }
+  .points{
+    position: absolute;
+    right:50px;
+  }
+  .routeritem{
+    text-decoration: none;
+    outline: none;
+    color:#d1d1d1;
+  }
+  }
+  .split{
+    width:696px;
+    margin-top:-9px;
+  }
+}
+</style>

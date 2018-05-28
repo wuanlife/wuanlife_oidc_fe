@@ -10,7 +10,10 @@
             <el-dropdown-item>退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-      </div>
+    </div>
+    <div class="login-container">
+      <span><router-link to="/signup/" class="login-container">注册</router-link></span>
+      <span><router-link to="/login/" class="login-container">登录</router-link></span>
     </div>
     <!-- login bar (if not logined) -->
     <div v-else class="login-container">
@@ -64,7 +67,19 @@ export default {
 .nav-user{
   display: flex;
   align-items: center;
-  .nav-user-logined{
+  .login-container {
+  color: #ffffff;
+  font-size:18px;
+  text-decoration: none;
+  span {
+    padding: 0 14px;
+    &:hover{
+      font-weight: bold;
+    }
+  }
+}
+ /*
+    .nav-user-logined{
     display: flex;
     justify-content: flex-start;
     height: 40px;
@@ -98,6 +113,6 @@ export default {
         background-color: rgba(255, 255, 255, 0.2);
       }
     }
-  }
+  }*/
 }
 </style>
