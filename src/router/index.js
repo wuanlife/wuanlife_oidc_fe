@@ -9,10 +9,7 @@ const Signup = resolve => require.ensure([], () => resolve(require('../views/sig
 const Authorize = resolve => require.ensure([], () => resolve(require('../views/authorize/index')), 'Authorize')
 const FindPsw = resolve => require.ensure([], () => resolve(require('../views/findpsw/index')), 'FindPsw') // 找回密码
 const Changepsw = resolve => require.ensure([], () => resolve(require('../views/changepsw/index')), 'Changepsw') // 修改密码
-
-const FindPsw = resolve => require.ensure([], () => resolve(require('../views/findpsw/index')), 'FindPsw') // 找回密码
-const Changepsw = resolve => require.ensure([], () => resolve(require('../views/changepsw/index')), 'Changepsw') // 修改密码
-
+const Resetpwd = resolve => require.ensure([], () => resolve(require('../views/resetpwd/index')), 'Resetpwd') // 重置密码
 const Personal = resolve => require.ensure([], () => resolve(require('../views/personal/index')), 'Personal')
 
 Vue.use(Router)
@@ -65,6 +62,14 @@ export const constantRouterMap = [
     redirect: '/findpsw/index',
     hidden: true,
     children: [{ path: 'index', component: FindPsw }]
+  },
+  {
+    path: '/resetpwd',
+    name: 'Resetpwd',
+    component: Layout,
+    redirect: '/resetpwd/index',
+    hidden: true,
+    children: [{ path: 'index', component: Resetpwd }]
   },
   {
     path: '/changepsw',
