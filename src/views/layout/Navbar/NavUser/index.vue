@@ -1,7 +1,6 @@
 <template>
   <div class="nav-user">
     <div class="nav-user-logined" v-if="user.id">
-      <div>
         <el-dropdown trigger="click">
           <span @click="show()">
             淘淘<icon-svg icon-class="triangle1" class="nav-user-triangle"></icon-svg>
@@ -10,7 +9,6 @@
             <el-dropdown-item>退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-      </div>
     </div>
     <!-- login bar (if not logined) -->
     <div v-else class="login-container">
