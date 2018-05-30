@@ -1,14 +1,14 @@
 <template>
   <div class="register-container">
     <section>
-      <header>找回密码</header>
+      <header>密码找回</header>
       <div class="form-content"  v-loading="loading">
-        <el-form label-width="100px" :model="loginForm" :rules="loginRules" ref="loginForm" class="demo-ruleForm" @keyup.enter.native="submitForm('loginForm')">
-            <el-form-item label="邮箱" prop="email" class="form-inputy">
+        <el-form :model="loginForm" :rules="loginRules" ref="loginForm" class="demo-ruleForm" @keyup.enter.native="submitForm('loginForm')">
+            <el-form-item  prop="email" class="form-inputy">
               <el-input v-model="loginForm.email" placeholder="输入邮箱"></el-input>
             </el-form-item>
-            <el-form-item label-width="100px" class="form-btny">
-              <el-button type="primary" :loading="loading" @click="submitForm('loginForm')">找回密码</el-button>
+            <el-form-item  class="form-btny">
+              <el-button type="primary" :loading="loading" @click="submitForm('loginForm')">确定</el-button>
             </el-form-item>
         </el-form>
       </div>
@@ -28,7 +28,7 @@ export default {
       if (value === '') {
         callback(new Error('请输入邮箱'))
       } else if (!myreg.test(value)) {
-        callback(new Error('请填写正确的邮箱格式！'))
+        callback(new Error('请输入正确的邮箱'))
       } else {
         callback()
       }
@@ -94,22 +94,72 @@ export default {
   display: flex;
     justify-content: space-between;
     margin: auto;
-    max-width: 660px;
-    min-width: 380px;
+    width: 400px;
+    height: 317px;
+    box-shadow: 0px 0px 2px 2px #ecedee;
+    margin-top: 135px;
     section {
-      flex: 1;
+      // flex: 1;
+      margin: 0 auto;
       header {
         margin: 15px 0 20px 0;
-        font-size:18px;
-        color:#5677fc;
+        font-family: MicrosoftYaHei-Bold;
+        font-size: 18px;
+        color: #5677fc;
+        margin-top: 40px;
+        text-align: center;
       }
       div.form-content {
         width: 100%;
-        background:#ffffff;
         border-radius:4px;
-        width:660px;
-        height:400px;
-        padding-top:40px;
+        padding-top:20px;
+        .el-input {
+          width: 220px;
+          /deep/ input {
+            padding-left: 11px;
+            font-size: 12px;
+            height: 32px;
+            color: #434343;
+            background-color: #f1f1f1;
+            border-radius: 4px;
+            //border: solid 2px rgba(171, 171, 171, 0.45);
+
+            &:focus {
+              background-color: white;
+              border-radius: 4px;
+              border: solid 2px rgba(0, 64, 185, 0.4);
+            }
+
+            &::-webkit-input-placeholder {
+              font-size: 12px;
+              color: #848484;
+              margin-top: 17px;
+            }
+
+            &:focus::-webkit-input-placeholder {
+              color: transparent;
+            }
+          }
+        }
+        .form-btny {
+          width: 220px;
+          height: 32px;
+          padding-top: 24px;
+          margin: 0 auto;
+          button {
+            padding: 0;
+            width: 220px;
+            height: 32px;
+            background-color: #5677fc;
+            border-radius: 4px;
+            font-size: 15px;
+            color: #ffffff;
+          }
+          button[disabled] {
+            background-color: #e9e9e9;
+            border-color: #e9e9e9;
+          }
+        }
       }
     }
 }
