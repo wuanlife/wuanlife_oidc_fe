@@ -12,6 +12,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css' // Progress 进度条 样式
 import 'normalize.css/normalize.css' // normalize.css 样式格式化
+import IconSvg from 'components/IconSvg' // svg 组件
+
 // import * as filters from './filters' // 全局vue filter
 // register globally
 import VueCookie from './plugin/vue-cookie'
@@ -19,6 +21,9 @@ import VueCookie from './plugin/vue-cookie'
 Vue.use(ElementUI)
 
 Vue.use(VueCookie)
+
+// register globally
+Vue.component('icon-svg', IconSvg)
 
 // register global utility filters.
 /* eslint import/namespace: ['error', { allowComputed: true }] */
