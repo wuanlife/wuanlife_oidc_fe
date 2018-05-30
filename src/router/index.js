@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
 import Layout from '../views/layout/Layout'
 
-const Index = resolve => require.ensure([], () => resolve(require('../views/login/index')), 'Index')
+// const Index = resolve => require.ensure([], () => resolve(require('../views/login/index')), 'Index')
 const Login = resolve => require.ensure([], () => resolve(require('../views/login/index')), 'Login')
 const Signup = resolve => require.ensure([], () => resolve(require('../views/signup/index')), 'Signup')
 const Authorize = resolve => require.ensure([], () => resolve(require('../views/authorize/index')), 'Authorize')
@@ -25,12 +26,12 @@ export const constantRouterMap = [
   {
     path: '/',
     component: Layout,
-    hidden: true,
-    children: [{
-      path: '/',
-      component: Index,
-      meta: { title: '午安网 - 过你想过的生活' }
-    }]
+    redirect: '/personal/profile'
+    // children: [{
+    //   path: '/',
+    //   component: Index,
+    //   meta: { title: '午安网 - 过你想过的生活' }
+    // }]
   },
   {
     path: '/login',
@@ -55,28 +56,17 @@ export const constantRouterMap = [
     component: Authorize
   },
   {
-    path: '/findpsw',
-    name: 'findpsw',
-    component: Layout,
-    redirect: '/findpsw/index',
-    hidden: true,
-    children: [{ path: 'index', component: FindPsw }]
-  },
-  {
     path: '/resetpwd',
     name: 'Resetpwd',
     component: Layout,
     redirect: '/resetpwd/index',
-    hidden: true,
-    children: [{ path: 'index', component: Resetpwd }]
-  },
-  {
-    path: '/changepsw',
-    name: 'changepsw',
-    component: Layout,
-    redirect: '/changepsw/index',
-    hidden: true,
-    children: [{ path: 'index', component: Changepsw, meta: { title: '修改密码 - 午安网 - 过你想过的生活' } }]
+    children: [{
+      path: '',
+      component: Resetpwd,
+      meta: {
+        requireAuth: true
+      }
+    }]
   },
   {
     path: '/personal',
@@ -89,7 +79,7 @@ export const constantRouterMap = [
       component: Personal,
       meta: {
         title: '个人资料',
-        requestAuth: true
+        requireAuth: true
       }
     }]
   },
@@ -111,12 +101,37 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/changepsw/index',
     hidden: true,
-    children: [{ path: 'index', component: Changepsw, meta: { title: '修改密码 - 午安网 - 过你想过的生活' } }]
+    children: [{
+      path: 'index',
+      component: Changepsw,
+      meta: {
+        title: '修改密码 - 午安网 - 过你想过的生活',
+        requireAuth: true
+      }
+    }]
   }
 ]
 
-export default new Router({
+const router = new Router({
   mode: 'history', // 后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
+
+router.beforeEach((to, from, next) => {
+  debugger
+  if (to.meta && to.meta.requireAuth) { // 判断该路由是否需要登录权限
+    if (store.state.user.uname) { // 通过vuex state获取当前的token是否存在
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: {return_to: to.fullPath} // 将跳转的路由path作为参数，登录成功后跳转到该路由
+      })
+    }
+  } else {
+    next()
+  }
+})
+
+export default router
