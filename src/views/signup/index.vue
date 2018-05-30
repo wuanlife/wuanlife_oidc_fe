@@ -104,6 +104,7 @@ export default {
       const self = this
       const { client_id, return_to } = this.$route.query
       this.loading = true
+      debugger
       signup({
         name: this.form.username,
         email: this.form.email,
@@ -115,7 +116,8 @@ export default {
           message: '注册成功',
           offset: 60
         })
-        this.$router.push({path: return_to})
+        
+        this.$router.push({path: return_to || '/'})
       }).catch(err => {
          Notification.error({
          message: err.data.error,
