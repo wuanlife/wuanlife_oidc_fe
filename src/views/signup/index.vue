@@ -108,7 +108,7 @@ export default {
         name: this.form.username,
         email: this.form.email,
         password: this.form.password,
-        client_id: client_id
+        client_id: client_id || 'wuan'
       }).then(res => {
         this.$cookie.set(`${client_id}-id-token`, res['ID-Token'], 7)
         Notification.success({

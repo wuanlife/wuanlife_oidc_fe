@@ -1,7 +1,6 @@
 <template>
   <div class="nav-user">
     <div class="nav-user-logined" v-if="user.id">
-      <div>
         <el-dropdown trigger="click">
           <span @click="show()">
             淘淘<icon-svg icon-class="triangle1" class="nav-user-triangle"></icon-svg>
@@ -11,13 +10,9 @@
           </el-dropdown-menu>
         </el-dropdown>
     </div>
-    <div class="login-container">
-      <span><router-link to="/signup/" class="login-container">注册</router-link></span>
-      <span><router-link to="/login/" class="login-container">登录</router-link></span>
-    </div>
     <!-- login bar (if not logined) -->
     <div v-else class="login-container">
-      <span><router-link :to="{path: '/login'}">登录</router-link></span>
+      <span><router-link :to="{path: '/authorize?client_id=wuan&redirect_uri=//localhost:9526&response_type=code&state=maye&nonce=random'}">登录</router-link></span>
       <span><router-link :to="{path: '/signup'}">注册</router-link></span>
     </div>
   </div>
@@ -30,6 +25,7 @@ export default {
   data () {
     return {
       isShow: false
+
     }
   },
   computed: {
