@@ -7,10 +7,9 @@ const Login = resolve => require.ensure([], () => resolve(require('../views/logi
 const Signup = resolve => require.ensure([], () => resolve(require('../views/signup/index')), 'Signup')
 
 const Authorize = resolve => require.ensure([], () => resolve(require('../views/authorize/index')), 'Authorize')
-
 const FindPsw = resolve => require.ensure([], () => resolve(require('../views/findpsw/index')), 'FindPsw') // 找回密码
 const Changepsw = resolve => require.ensure([], () => resolve(require('../views/changepsw/index')), 'Changepsw') // 修改密码
-
+const Resetpwd = resolve => require.ensure([], () => resolve(require('../views/resetpwd/index')), 'Resetpwd') // 重置密码
 const Personal = resolve => require.ensure([], () => resolve(require('../views/personal/index')), 'Personal')
 
 Vue.use(Router)
@@ -65,6 +64,14 @@ export const constantRouterMap = [
     children: [{ path: 'index', component: FindPsw }]
   },
   {
+    path: '/resetpwd',
+    name: 'Resetpwd',
+    component: Layout,
+    redirect: '/resetpwd/index',
+    hidden: true,
+    children: [{ path: 'index', component: Resetpwd }]
+  },
+  {
     path: '/changepsw',
     name: 'changepsw',
     component: Layout,
@@ -90,6 +97,22 @@ export const constantRouterMap = [
   {
     path: '*',
     redirect: '/404'
+  },
+  {
+    path: '/findpsw',
+    name: 'findpsw',
+    component: Layout,
+    redirect: '/findpsw/index',
+    hidden: true,
+    children: [{ path: 'index', component: FindPsw }]
+  },
+  {
+    path: '/changepsw',
+    name: 'changepsw',
+    component: Layout,
+    redirect: '/changepsw/index',
+    hidden: true,
+    children: [{ path: 'index', component: Changepsw, meta: { title: '修改密码 - 午安网 - 过你想过的生活' } }]
   }
 ]
 

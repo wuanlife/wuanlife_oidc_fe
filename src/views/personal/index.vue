@@ -53,10 +53,10 @@ export default {
   .pesonData {
   display: flex;
   justify-content: space-between;
-  margin: auto;
+  margin:  auto;
   margin-top: 135px;
   .personal-data-form {
-     background: #ffffff;
+     background: #fff;
       width:745px ;
       height:423px;
       margin: 0 auto;
@@ -66,6 +66,14 @@ export default {
       border-radius: 5px;
     .el-tabs{
     size:18px;
+    width: 695px;
+    margin: 0 auto;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    .el-icon-date{
+      width:120px;
+      font-size: 18px;
+    }
       /deep/
       .el-tab-pane{
         width:120px;
