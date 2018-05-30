@@ -99,11 +99,9 @@ export default {
     box-shadow: 0px 0px 2px 2px #ecedee;
     margin-top: 135px;
     section {
-      // flex: 1;
       margin: 0 auto;
       header {
         margin: 15px 0 20px 0;
-        font-family: MicrosoftYaHei-Bold;
         font-size: 18px;
         color: #5677fc;
         margin-top: 40px;
@@ -122,12 +120,12 @@ export default {
             color: #434343;
             background-color: #f1f1f1;
             border-radius: 4px;
-            //border: solid 2px rgba(171, 171, 171, 0.45);
+            border: solid 1px rgba(209, 209, 209, 0.3);
 
             &:focus {
               background-color: white;
               border-radius: 4px;
-              border: solid 2px rgba(0, 64, 185, 0.4);
+              border: solid 1px rgba(86, 119, 252, 0.3);
             }
 
             &::-webkit-input-placeholder {
