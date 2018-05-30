@@ -37,26 +37,7 @@
               </div>
               <div class="form-item">
                   <span>生日:</span>
-                  <div class="form-item-date">
-                      <date-picker
-                        :min="1970"
-                        :max="2018"
-                        :defaultNum="yearNumber"
-                        @pick="year"
-                        class="date-picker"></date-picker>年
-                      <date-picker
-                        :min="1"
-                        :max="12"
-                        :defaultNum="mouthNumber"
-                        @pick="mouth"
-                        class="date-picker"></date-picker>月
-                      <date-picker
-                        :min="1"
-                        :max="dayMax"
-                        :defaultNum="dayNumber"
-                        @pick="day"
-                        class="date-picker"></date-picker>日
-                  </div>
+                <DatePicker ref="datepicker"></DatePicker>
               </div>
           </div>
         </div>
@@ -74,11 +55,6 @@ export default {
   name: 'personalData',
   data () {
     return {
-      yearNumber: 2018,
-      mouthNumber: 1,
-      dayNumber: 1,
-      dayMax: 31,
-      leap: false,
       sex: 'female',
       mail: '',
       name: '',
@@ -95,37 +71,17 @@ export default {
     DatePicker
   },
   computed: {
+    year () {
+      return this.$refs.datepicker.year
+    },
+    month () {
+      return this.$refs.datepicker.month
+    },
+    day () {
+      return this.$refs.datepicker.day
+    }
   },
   methods: {
-    year: function (val) {
-      this.yearNumber = val
-      // 判断闰年
-      let isLeap = (this.yearNumber % 4 === 0 && this.yearNumber % 100 !== 0) || this.yearNumber % 400 === 0
-      if (isLeap) {
-        this.leap = true
-      } else {
-        this.leap = false
-      }
-    },
-    mouth: function (val) {
-      this.mouthNumber = val
-      // 相应改变每月的天数
-      if (this.mouthNumber === 1 || this.mouthNumber === 3 || this.mouthNumber === 5 || this.mouthNumber === 7 || this.mouthNumber === 8 || this.mouthNumber === 10 || this.mouthNumber === 12) {
-        this.dayMax = 31
-      } else {
-        this.dayMax = 30
-      }
-      if (this.mouthNumber === 2) {
-        if (this.leap === true) {
-          this.dayMax = 29
-        } else {
-          this.dayMax = 28
-        }
-      }
-    },
-    day: function (val) {
-      this.dayNumber = val
-    }
   }
 }
 </script>
@@ -192,7 +148,7 @@ export default {
                         width: 250px;
                         background-color: #f1f1f1;
                         border-radius: 3px;
-                        padding-left: 8px;
+                        padding-left:4px;
                     }
                     &>input:focus{
                         background-color: rgba(248, 249, 250, 0.4);
