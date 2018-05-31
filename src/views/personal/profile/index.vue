@@ -94,7 +94,7 @@ export default {
     width: 465px;
     margin: 0 auto;
     border-radius: 4px;
-    padding: 0px 111px 68px 121px;
+    padding: 0px 111px 68px 45px;
     text-align: center;
     section{
         .personal-data-form{
@@ -182,7 +182,7 @@ export default {
         .btn{
             position: absolute;
             top:255px;
-            left:280px;
+            left:270px;
             button{
             padding: 0;
             width: 94px;
