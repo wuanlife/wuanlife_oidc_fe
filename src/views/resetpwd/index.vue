@@ -3,14 +3,14 @@
   <section>
     <header>密码找回</header>
     <div class="form-content" v-loading="loading">
-      <el-form label-width="100px" :model="loginForm" :rules="loginRules" ref="loginForm" class="demo-ruleForm" @keyup.enter.native="submitForm('loginForm')">
+      <el-form  :model="loginForm" :rules="loginRules" ref="loginForm" class="demo-ruleForm" @keyup.enter.native="submitForm('loginForm')">
         <el-form-item  prop="password" class="form-inputy">
           <el-input type="password" v-model="loginForm.password" placeholder="输入新密码"></el-input>
         </el-form-item>
         <el-form-item  prop="confirmpassword" class="form-inputy">
           <el-input type="password" v-model="loginForm.confirmpassword" auto-complete="off" placeholder="确认新密码"></el-input>
         </el-form-item>
-        <el-form-item label-width="100px" class="form-btny">
+        <el-form-item  class="form-btny">
           <el-button type="primary" :loading="loading" @click="submitForm('loginForm')">确定</el-button>
         </el-form-item>
       </el-form>
@@ -125,7 +125,7 @@ export default {
   margin: 135px auto;
     section {
       background: #ffffff;
-      width:400px;
+      width:220px;
       height:317px;
       justify-content: center;
       box-shadow: 0px 0px 2px 2px #ecedee;
@@ -147,12 +147,12 @@ export default {
             color: #434343;
             background-color: #f1f1f1;
             border-radius: 4px;
-            //border: solid 2px rgba(171, 171, 171, 0.45);
+            border: solid 1px rgba(209, 209, 209, 0.3);
 
             &:focus {
               background-color: rgba(248, 249, 250, 0.4);
               border-radius: 4px;
-              border: solid 2px rgba(0, 64, 185, 0.4);
+              border: solid 1px rgba(86, 119, 252, 0.3);
             }
 
             &::-webkit-input-placeholder {
