@@ -182,7 +182,7 @@ export default {
         .btn{
             position: absolute;
             top:255px;
-            left:270px;
+            left:210px;
             button{
             padding: 0;
             width: 94px;
