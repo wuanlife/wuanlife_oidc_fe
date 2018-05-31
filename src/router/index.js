@@ -61,10 +61,7 @@ export const constantRouterMap = [
     redirect: '/resetpwd/index',
     children: [{
       path: '',
-      component: Resetpwd,
-      meta: {
-        requireAuth: true
-      }
+      component: Resetpwd
     }]
   },
   {

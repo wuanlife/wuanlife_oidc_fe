@@ -53,3 +53,21 @@ export function changePassword({id, data}) {
     data: data
   })
 }
+
+// 找回密码发送邮件API
+export function findPwd({email}) {
+  return fetch({
+    url: `/email/${email}`,
+    method: 'post'
+  })
+}
+
+
+// 获取邮件的token重置密码
+export function resetPwd({id, data}) {
+  return fetch({
+    url: `/users/${id}/password`,
+    method: 'post',
+    data: data
+  })
+}
