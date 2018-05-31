@@ -93,7 +93,8 @@ export const constantRouterMap = [
     redirect: '/findpsw/index',
     hidden: true,
     children: [{ path: 'index', component: FindPsw }]
-  },
+  }
+  /*
   {
     path: '/changepsw',
     name: 'changepsw',
@@ -109,6 +110,7 @@ export const constantRouterMap = [
       }
     }]
   }
+*/
 ]
 
 const router = new Router({

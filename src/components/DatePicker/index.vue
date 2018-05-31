@@ -20,7 +20,7 @@
           <li v-for="n in (MaxDay)" :key="n" @click="picker(n,3)">{{ n }}</li>
       </ul>
   </div>
-  <span>日</span>
+      <span>日</span>
   </div>
 </template>
 
@@ -94,12 +94,13 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .date-picker{
-    min-width:35px;
+    min-width:34px;
     height:15px;
     text-align: center;
     background-color: #f1f1f1;
     border-radius: 4px;
     padding: 6px;
+    border:transparent 1px solid;
     cursor: pointer;
     position: relative;
     display: inline-block;
@@ -108,17 +109,20 @@ export default {
         color: #757575;
     }
     ul{
-      height: 174px;
+      position: relative;
+      height: 110px;
       width: 100%;
       border-radius: 4px;
       border: solid 1px #99b3e3;
       font-size: 16px;
-      color: #d6d6d6;
+      color: rgba(0,0,0,0.5);
       padding: 10px 0 10px 0;
       overflow-y: scroll;
       position: absolute;
       top: 18px;
       left: -1px;
+      z-index: 999;
+      background-color:rgba(255,255,255,0.5);
       li{
           margin-bottom: 5px;
           padding: 5px 0 5px 0x;
