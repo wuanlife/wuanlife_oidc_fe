@@ -13,10 +13,11 @@
                 ref="upload"
                 style="display:none">
                 <el-button id="img-input"
-                 size="small"
-                 type="primary">点击上传</el-button>
-                </el-upload>
-              <button><i class="el-icon-edit-outline avatar-icon "></i>修改</button>
+                  size="small"
+                  type="primary">点击上传
+                </el-button>
+              </el-upload>
+              <button @click="changeAvatar"><i class="el-icon-edit-outline avatar-icon "></i>修改</button>
           </div>
           <div class="form-right">
               <div class="form-item">
@@ -51,6 +52,8 @@
 
 // const QINIU_DOMAIN = '//7xlx4u.com1.z0.glb.clouddn.com/' // 图片服务器域名，展示时用
 import DatePicker from 'components/DatePicker'
+import { getToken } from 'api/qiniu'
+const QINIU_DOMAIN = '//7xlx4u.com1.z0.glb.clouddn.com/' // 图片服务器域名，展示时用
 export default {
   name: 'personalData',
   data () {
@@ -82,6 +85,39 @@ export default {
     }
   },
   methods: {
+    changeAvatar () {
+      const self = this
+      if (this.loading) {
+        return
+      }
+      this.loading = true
+      setTimeout(function () {
+        self.loading = false
+      }, 10000)
+      document.getElementById('img-input').click()
+    },
+    beforeUpload: function (file) {
+      return this.qnUpload(file)
+    },
+    qnUpload: function (file) {
+      const suffix = file.name.split('.')
+      const ext = suffix.splice(suffix.length - 1, 1)[0]
+      // TODO: 图片格式/大小限制
+      return getToken().then(res => {
+        this.uploadData = {
+          key: `image/${suffix.join('.')}_${new Date().getTime()}.${ext}`,
+          token: res.uploadToken
+        }
+      })
+    },
+    upScuccess: function (e, file, fileList) {
+      const url = QINIU_DOMAIN + e.key
+      this.$refs.avatar.setAttribute('src', url)
+      this.loading = false
+    },
+    upError: function (e, file, fileList) {
+      this.loading = false
+    }
   }
 }
 </script>
