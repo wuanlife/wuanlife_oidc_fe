@@ -114,6 +114,9 @@ export default {
         if (this.day > this.MaxDay) {
           this.day = this.MaxDay
         }
+        if (this.month > this.MaxMonth) {
+          this.month = this.MaxMonth
+        }
       },
       deep: true
     }
@@ -143,11 +146,7 @@ export default {
       width: 100%;
       border-radius: 4px;
       border: solid 1px #99b3e3;
-<<<<<<< HEAD
       font-size: 12px;
-=======
-      font-size: 16px;
->>>>>>> upstream/master
       color: rgba(0,0,0,0.5);
       padding: 10px 0 10px 0;
       overflow-y: scroll;
