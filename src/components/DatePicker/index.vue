@@ -114,6 +114,9 @@ export default {
         if (this.day > this.MaxDay) {
           this.day = this.MaxDay
         }
+        if (this.month > this.MaxMonth) {
+          this.month = this.MaxMonth
+        }
       },
       deep: true
     }
