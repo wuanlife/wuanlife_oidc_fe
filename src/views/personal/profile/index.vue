@@ -4,6 +4,7 @@
       <div class="personal-data-form" v-loading="loading1">
           <div class="form-left" v-loading="loading">
               <img v-bind:src="dafaultAvatarUrl" id="avatar" ref="avatar">
+              <div class="upload" @click="changeAvatar"><a ref=""><icon-svg icon-class="edit_blue" class="icon"></icon-svg></a></div>
               <el-upload
                 :action="UPLOAD_ADDRESS"
                 :before-upload='beforeUpload'
@@ -16,7 +17,6 @@
                  size="small"
                  type="primary">点击上传</el-button>
                 </el-upload>
-              <button><i class="el-icon-edit-outline avatar-icon "></i>修改</button>
           </div>
           <div class="form-right">
               <div class="form-item">
@@ -85,6 +85,17 @@ export default {
     }
   },
   methods: {
+    changeAvatar: function () {
+      const self = this
+      if (this.loading) {
+        return
+      }
+      this.loading = true
+      setTimeout(function () {
+        self.loading = false
+      }, 1000)
+      document.getElementById('img-input').click()
+    }
   }
 }
 </script>
@@ -106,6 +117,28 @@ export default {
                 .el-icon-edit-outline::before{
                   height:45px;
                   width:45px;
+                }
+                .upload{
+                    display: block;
+                    height: 98px;
+                    width: 98px;
+                    border-radius: 100%;
+                    background-color:transparent;
+                    position: absolute;
+                    top:41px;
+                    left:46px;
+                    .icon{
+                        margin:40% 40%;
+                        color:transparent;
+                    }
+                }
+                .upload:hover{
+                    background-color:rgba(255,255,255,0.3);
+                    .icon{
+                        color:gray;
+                        width:25px;
+                        height:25px;
+                    }
                 }
                 img{
                     display: block;
