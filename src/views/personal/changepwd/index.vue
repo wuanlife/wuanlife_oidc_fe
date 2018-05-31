@@ -2,24 +2,24 @@
   <div class="register-container view-container">
     <section>
       <div class="form-content wl-card" v-loading="loading">
-        <el-form :model="changepswForm" :rules="changepswRules" ref="changepswForm" class="demo-ruleForm" @keyup.enter.native="submitForm('changepswForm')">
-          <div class="oldpsw-input">
-            <el-form-item prop="oldPassword" class="form-inputy">
-              <el-input type="password" v-model="changepswForm.oldPassword" placeholder="原密码">
+        <el-form label-width="100px" :model="changepswForm" :rules="changepswRules" ref="changepswForm" class="demo-ruleForm" @keyup.enter.native="submitForm('changepswForm')">
+         <div class="oldpsw-input">
+            <el-form-item label="原密码：" prop="oldPassword" class="form-inputy">
+              <el-input  type="password" v-model="changepswForm.oldPassword" >
                 <icon-svg icon-class="mima" class="mima-icon" slot="prefix"></icon-svg>
               </el-input>
             </el-form-item>
-          </div>
+        </div>
           <div class="psw-input">
-            <el-form-item prop="password" class="form-inputy">
-              <el-input type="password" v-model="changepswForm.password" placeholder="输入密码">
+            <el-form-item label="新密码：" prop="password" class="form-inputy">
+              <el-input type="password" v-model="changepswForm.password" >
                 <icon-svg icon-class="mima" class="mima-icon" slot="prefix"></icon-svg>
               </el-input>
             </el-form-item>
           </div>
           <div class="cofpsw-input">
-            <el-form-item prop="confirmPassword" class="form-inputy">
-              <el-input type="password" v-model="changepswForm.confirmPassword" auto-complete="off" placeholder="请再输入一遍">
+            <el-form-item label="确认密码：" prop="confirmPassword" class="form-inputy">
+              <el-input type="password" v-model="changepswForm.confirmPassword" auto-complete="off">
                 <icon-svg icon-class="mima" class="mima-icon" slot="prefix"></icon-svg>
               </el-input>
             </el-form-item>
@@ -117,106 +117,75 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.form-content {
-  width: 100%;
-  background: #ffffff;
-  /*background: #C0C0C0;*/
-  width: 745px;
-  height: 343px;
-  margin: 0 auto;
-  justify-content: center;
-
-  .el-form-item {
-    margin-bottom: 0px;
-
-    /deep/ .el-form-item__error {
-      padding-top: 6px;
-      height: 16px;
-      font-size: 8px;
-      color: #e60012;
-    }
-  }
-
-  .el-input {
-    width: 200px;
-
-    /deep/ input {
-      padding-left: 11px;
-      font-size: 15px;
-      height: 32px;
-      color: #434343;
-      background-color: rgba(248, 249, 250, 0.4);
-      box-shadow: -3px 0px 7px 0px rgba(99, 99, 99, 0.16);
-      border-radius: 4px;
-      border: solid 2px rgba(171, 171, 171, 0.4);
-
-      &:focus {
-        background-color: rgba(248, 249, 250, 0.4);
-        box-shadow: 0px 3px 7px 0px rgba(86, 119, 252, 0.16);
-        border-radius: 4px;
-        border: solid 2px rgba(0, 64, 185, 0.4);
+.register-container{
+  display: flex;
+    justify-content: space-between;
+    margin: auto;
+    width: 700px;
+    height: 343px;
+    section {
+      flex: 1;
+      header {
+        margin: 15px 0 20px 0;
+        font-size:18px;
+        color:#5677fc;
       }
+      div.form-content {
+        width: 100%;
+        border-radius:4px;
+        width:300px;
+        height:343px;
+        padding-top:40px;
+        margin: 0 auto;
+        .el-form-item{
+        font-size: 14px;
+        color: #707070;
+        }
+        .el-input {
+          width: 200px;
+          /deep/ input {
+            padding-left: 11px;
+            font-size: 12px;
+            height: 32px;
+            color: #434343;
+            background-color: rgba(209, 209, 209, 0.3);
+            border-radius: 4px;
+            &:focus {
+              background-color: white;
+              border-radius: 4px;
+              border: solid 1px rgba(86, 119, 252, 0.3);
+            }
 
-      &::-webkit-input-placeholder {
-        font-size: 12px;
-        color: #434343;
-        margin-top: 18px;
+            &::-webkit-input-placeholder {
+              font-size: 12px;
+              color: #848484;
+              margin-top: 17px;
+            }
+
+            &:focus::-webkit-input-placeholder {
+              color: transparent;
+            }
+          }
+        }
+        .form-btny {
+          width: 93px;
+          height: 32px;
+          padding-top: 24px;
+          button {
+            padding: 0;
+            width: 93px;
+            height: 32px;
+            background-color: #5677fc;
+            border-radius: 4px;
+            font-size: 15px;
+            color: #ffffff;
+          }
+          button[disabled] {
+            background-color: #e9e9e9;
+            border-color: #e9e9e9;
+          }
+        }
+        }
       }
     }
-  }
-
-  .oldpsw-input {
-    width: 200px;
-    margin: 0 auto;
-    padding-top: 32px;
-
-    .svg-icon {
-      width: 25px;
-      height: 21px;
-      color: #5677fc;
-      margin: 15px 0 15px -44px;
-    }
-  }
-
-  .psw-input {
-    width: 200px;
-    margin: 0 auto;
-    padding-top: 30px;
-    .svg-icon {
-      width: 25px;
-      height: 21px;
-      color: #5677fc;
-      margin: 15px 0 15px -44px;
-    }
-  }
-
-  .cofpsw-input {
-    width: 200px;
-    margin: 0 auto;
-    padding-top: 30px;
-    .svg-icon {
-      width: 25px;
-      height: 21px;
-      color: #5677fc;
-      margin: 15px 0 15px -44px;
-    }
-  }
-
-  .form-btny {
-    text-align: center;
-    width: 93px;
-    height: 32px;
-    padding-top: 40px;
-    margin: 0 auto;
-    button {
-      padding: 0;
-      width: 93px;
-      height: 32px;
-      background-color: #5677fc;
-      border-radius: 4px;
-      font-size: 14px;
-      color: #ffffff;
-    }
-  }
-}
 </style>

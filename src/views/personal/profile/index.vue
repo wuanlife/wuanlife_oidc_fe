@@ -25,7 +25,7 @@
               </div>
               <div class="form-item">
                   <span>昵称:</span>
-                  <input type="text" v-model="name">
+                  <el-input v-model="name" clearable></el-input>
               </div>
               <div class="form-item">
                   <span>性别:</span>
@@ -37,8 +37,11 @@
               </div>
               <div class="form-item">
                   <span>生日:</span>
-                <DatePicker ref="datepicker"></DatePicker>
+                <DatePicker ref="datepicker" class="datepicker"></DatePicker>
               </div>
+          </div>
+          <div class="btn">
+          <el-button type="primary" :loading="loading2">保存</el-button>
           </div>
         </div>
     </section>
@@ -98,19 +101,19 @@ export default {
             display: flex;
             justify-content: space-between;
             .form-left{
-              padding-top:45px;
-              margin-right: 30px;
+              padding-top:55px;
+              margin-right: 36px;
                 .el-icon-edit-outline::before{
                   height:45px;
                   width:45px;
                 }
                 img{
                     display: block;
-                    height: 100px;
-                    width: 100px;
+                    height: 98px;
+                    width: 98px;
+                    border: #e3e3e3 1px solid;
                     border-radius: 100%;
                     background-color: rgb(165, 164, 164);
-                    box-shadow: 0px 4px 5px 0px rgba(181, 181, 181, 0.75);
                     margin-bottom: 7px;
                 }
                 button{
@@ -119,47 +122,54 @@ export default {
                     color: #5677fc;
                     background-color: transparent;
                     cursor: pointer;
-                    .avatar-icon{
-                        margin-right: 6 px;
-                    }
                 }
             }
             .form-right{
                 border-left: solid 1px #c9c9c9;
-                margin-top: 45px;
-                padding-left: 26px;
+                margin-top: 55px;
+                padding-left: 27px;
+                padding-top:-20px;
+                height:166px;
                 .form-item{
-                    min-height: 35px;
+                    max-height:1.5em;
                     display: flex;
                     align-items: center;
                     color: #707070;
-                    margin-bottom: 20px;
+                    margin-bottom: 27px;
                     &:last-child{
                         margin-bottom: 0;
                     }
+                    p{
+                        padding-left:12px;
+                    }
                     span{
-                        padding-right:18px;
+                        margin-right:25px;
                         font-size: 14px;
                         font-weight: bold;
                         color: #707070;
+                        min-width:34px;
                     }
-                    &>input{
-                        height: 28px;
+                    .el-input {
                         width: 250px;
+                        /deep/ input {
+                        height: 32px;
+                        padding-left: 12px;
+                        font-size: 12px;
                         background-color: #f1f1f1;
                         border-radius: 3px;
-                        padding-left:4px;
+                        &:focus {
+                          background-color: white;
+                          border-radius: 4px;
+                          border: solid 1px rgba(0, 64, 185, 0.4);
+                        }
                     }
-                    &>input:focus{
-                        background-color: rgba(248, 249, 250, 0.4);
-                        border-radius: 4px;
-                         border: solid 1px rgba(0, 64, 185, 0.4);
-                    }
-                    .form-item-sex{
+                }
+                .form-item-sex{
                         display: flex;
                         align-items: center;
                         justify-content: flex-start;
                         width: 253px;
+                        margin-left:12px;
                         .label-active{
                             background-color: rgba(248, 249, 250, 0.4);
                           box-shadow: 0px 3px 7px 0px
@@ -167,25 +177,23 @@ export default {
                           border: solid 2px rgba(0, 64, 185, 0.4);
                         }
                     }
-                    .form-item-date{
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        .date-picker{
-                            margin-left: 8px;
-                            z-index: 0;
-                            &:first-child{
-                                margin-left: 0;
-                            }
-                        }
-                    }
-                }
             }
         }
-        .save{
-            width: 150px;
-            margin-top: 66px;
+        .btn{
+            position: absolute;
+            top:255px;
+            left:280px;
+            button{
+            padding: 0;
+            width: 94px;
+            height:32px;
+            background-color: #5677fc;
+            border-radius: 4px;
+            font-size: 15px;
+            color: #ffffff;
+            }
         }
     }
+  }
 }
 </style>

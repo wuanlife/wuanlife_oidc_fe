@@ -13,14 +13,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import NavUser from './NavUser'
-// import NavMenu from './NavMenu'
-// import NavList from './NavList'
 
 export default {
   components: {
     'nav-user': NavUser
-    // 'nav-menu': NavMenu,
-    // 'nav-list': NavList
   },
   data () {
     return {
@@ -30,25 +26,6 @@ export default {
     ...mapGetters(['user'])
   },
   methods: {
-    logout () {
-      this.$store.dispatch('Logout').then(() => {
-        location.reload() // 为了重新实例化vue-router对象 避免bug
-      })
-    },
-    visibleChange () {
-      this.isShowDrop = !this.isShowDrop
-    },
-    handleIconClick () {
-      if (this.input2 !== '') {
-        this.$store.commit('SET_SEARCHTEXT', this.searchContent)
-        this.$router.push({ path: '/search' })
-      } else {
-        alert('请输入要搜索的内容')
-      }
-    },
-    clickDot () {
-      this.dotShow = false
-    }
   },
   mounted () {
   }

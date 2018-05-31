@@ -21,7 +21,7 @@
          -->
         </el-form-item>
       </el-form>
-      <div  class="getBack" ><router-link to="/signup" class="getBack">忘记密码?</router-link></div>
+      <div  class="getBack" ><router-link to="/findpsw" class="getBack">忘记密码?</router-link></div>
     </div>
   </div>
 </template>
@@ -68,7 +68,7 @@ export default {
     }
   },
   mounted () {
-    const clientId = this.$route.query.client_id
+    const clientId = this.$route.query.client_id || 'wuan'
     const idToken = this.$cookie.get(`${clientId}-id-token`)
     if (idToken !== null && idToken !== '') {
       this.$router.push({ path: '/personal' })
@@ -94,7 +94,7 @@ export default {
             offset: 60
           });
           const self = this;
-          debugger
+
           self.$store.commit('SET_USER', {
             ...JSON.parse(atob(res['ID-Token'].split('.')[1]))
           })
