@@ -4,6 +4,7 @@
       <div class="personal-data-form" v-loading="loading1">
           <div class="form-left" v-loading="loading">
               <img v-bind:src="dafaultAvatarUrl" id="avatar" ref="avatar">
+              <div class="upload" @click="changeAvatar"><a ref=""><icon-svg icon-class="edit_blue" class="icon"></icon-svg></a></div>
               <el-upload
                 :action="UPLOAD_ADDRESS"
                 :before-upload='beforeUpload'
@@ -13,11 +14,17 @@
                 ref="upload"
                 style="display:none">
                 <el-button id="img-input"
+<<<<<<< HEAD
                   size="small"
                   type="primary">点击上传
                 </el-button>
               </el-upload>
               <button @click="changeAvatar"><i class="el-icon-edit-outline avatar-icon "></i>修改</button>
+=======
+                 size="small"
+                 type="primary">点击上传</el-button>
+                </el-upload>
+>>>>>>> d52b66762011d39b66bf8ce5cfb963643c10d6a0
           </div>
           <div class="form-right">
               <div class="form-item">
@@ -64,9 +71,9 @@ export default {
   name: 'personalData',
   data () {
     return {
-      sex: 'female',
+      sex: 'secrecy',
       mail: '',
-      name: '',
+      name: '123',
       dafaultAvatarUrl: 'http://7xlx4u.com1.z0.glb.clouddn.com/o_1aqt96pink2kvkhj13111r15tr7.jpg?imageView2/1/w/97/h/97',
       UPLOAD_ADDRESS: location.protocol === 'http:' ? 'http://upload.qiniu.com' : 'https://up.qbox.me',
       uploadData: {},
@@ -153,11 +160,33 @@ export default {
             display: flex;
             justify-content: space-between;
             .form-left{
-              padding-top:55px;
+              padding-top:40px;
               margin-right: 36px;
                 .el-icon-edit-outline::before{
                   height:45px;
                   width:45px;
+                }
+                .upload{
+                    display: block;
+                    height: 98px;
+                    width: 98px;
+                    border-radius: 100%;
+                    background-color:transparent;
+                    position: absolute;
+                    top:41px;
+                    left:46px;
+                    .icon{
+                        margin:40% 40%;
+                        color:transparent;
+                    }
+                }
+                .upload:hover{
+                    background-color:rgba(255,255,255,0.3);
+                    .icon{
+                        color:gray;
+                        width:25px;
+                        height:25px;
+                    }
                 }
                 img{
                     display: block;
@@ -178,10 +207,10 @@ export default {
             }
             .form-right{
                 border-left: solid 1px #c9c9c9;
-                margin-top: 55px;
+                margin-top: 40px;
                 padding-left: 27px;
                 padding-top:-20px;
-                height:166px;
+                height:165px;
                 .form-item{
                     max-height:1.5em;
                     display: flex;
