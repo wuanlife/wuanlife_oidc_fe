@@ -7,9 +7,9 @@ export function verify ({idToken = '', accessToken = ''}) {
   })
 }
 
-export function getAccess ({scope = 'public_profile'}) {
+export function getAccess (params = {scope: 'public_profile'}) {
   const data = {
-    scope: scope
+    scope: params.scope
   }
   return fetch({
     url: `/auth`,

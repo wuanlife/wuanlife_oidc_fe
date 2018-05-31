@@ -22,7 +22,7 @@
           <div class="form-right">
               <div class="form-item">
                   <span>邮箱:</span>
-                  <p>123@qq.com</p>
+                  <p>{{mail}}</p>
               </div>
               <div class="form-item">
                   <span>昵称:</span>
@@ -31,9 +31,11 @@
               <div class="form-item">
                   <span>性别:</span>
                   <div class="form-item-sex">
-                      <el-radio  v-model="sex" label="male">男</el-radio>
-                      <el-radio  v-model="sex" label="female">女</el-radio>
-                      <el-radio  v-model="sex" label="secrecy">保密</el-radio>
+                      <el-radio-group v-model="sex">
+                          <el-radio label="male">男</el-radio>
+                          <el-radio label="female">女</el-radio>
+                          <el-radio label="secrecy">保密</el-radio>
+                      </el-radio-group>
                   </div>
               </div>
               <div class="form-item">
@@ -42,7 +44,7 @@
               </div>
           </div>
           <div class="btn">
-          <el-button type="primary" :loading="loading2">保存</el-button>
+          <el-button type="primary" :loading="loading2" @click="handleSave">保存</el-button>
           </div>
         </div>
     </section>
@@ -56,6 +58,7 @@
 // const QINIU_DOMAIN = '//7xlx4u.com1.z0.glb.clouddn.com/' // 图片服务器域名，展示时用
 import DatePicker from 'components/DatePicker'
 import { getToken } from 'api/qiniu'
+import { getUser } from 'api/user'
 const QINIU_DOMAIN = '//7xlx4u.com1.z0.glb.clouddn.com/' // 图片服务器域名，展示时用
 export default {
   name: 'personalData',
@@ -70,7 +73,8 @@ export default {
       loading: false,
       loading1: false,
       loading2: false,
-      default: {}
+      default: {},
+      birthday: '1990-12-12'
     }
   },
   components: {
@@ -87,6 +91,15 @@ export default {
       return this.$refs.datepicker.day
     }
   },
+  mounted () {
+    getUser({id: this.$store.getters.user.uid}).then(res => {
+      this.mail = res.mail
+      this.sex = res.sex
+      this.name = res.name
+      this.defaultAvatarUrl = res.avatar_url
+      this.birthday = res.birthday
+    })
+  },
   methods: {
     changeAvatar () {
       const self = this
@@ -99,6 +112,9 @@ export default {
       }, 10000)
       document.getElementById('img-input').click()
     },
+    handleSave () {
+
+    },
     beforeUpload: function (file) {
       return this.qnUpload(file)
     },
@@ -109,7 +125,7 @@ export default {
       return getToken().then(res => {
         this.uploadData = {
           key: `image/${suffix.join('.')}_${new Date().getTime()}.${ext}`,
-          token: res.uploadToken
+          token: res['upload-token']
         }
       })
     },
