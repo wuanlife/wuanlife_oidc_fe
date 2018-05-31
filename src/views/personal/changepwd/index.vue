@@ -91,8 +91,8 @@ export default {
           this.loading = true
           try {
             await changePassword({
-              old_psd: this.changepswForm.oldPassword,
-              new_psd: this.changepswForm.password
+              password: this.changepswForm.oldPassword,
+              new_password: this.changepswForm.password
             })
             Notification.info({
               message: '密码修改成功, 3秒后跳转到首页',

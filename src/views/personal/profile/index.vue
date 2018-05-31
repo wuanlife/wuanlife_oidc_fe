@@ -14,17 +14,11 @@
                 ref="upload"
                 style="display:none">
                 <el-button id="img-input"
-<<<<<<< HEAD
                   size="small"
                   type="primary">点击上传
                 </el-button>
               </el-upload>
               <button @click="changeAvatar"><i class="el-icon-edit-outline avatar-icon "></i>修改</button>
-=======
-                 size="small"
-                 type="primary">点击上传</el-button>
-                </el-upload>
->>>>>>> d52b66762011d39b66bf8ce5cfb963643c10d6a0
           </div>
           <div class="form-right">
               <div class="form-item">

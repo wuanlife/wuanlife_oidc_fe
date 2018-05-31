@@ -45,3 +45,11 @@ export function putUser({id, data}) {
     data: data
   })
 }
+
+export function changePassword({id, data}) {
+  return fetch({
+    url: `/users/${id}/password`,
+    method: 'put',
+    data: data
+  })
+}
