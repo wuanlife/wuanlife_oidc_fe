@@ -58,9 +58,9 @@ export default {
   name: 'personalData',
   data () {
     return {
-      sex: 'female',
+      sex: 'secrecy',
       mail: '',
-      name: '',
+      name: '123',
       dafaultAvatarUrl: 'http://7xlx4u.com1.z0.glb.clouddn.com/o_1aqt96pink2kvkhj13111r15tr7.jpg?imageView2/1/w/97/h/97',
       UPLOAD_ADDRESS: location.protocol === 'http:' ? 'http://upload.qiniu.com' : 'https://up.qbox.me',
       uploadData: {},
@@ -101,7 +101,7 @@ export default {
             display: flex;
             justify-content: space-between;
             .form-left{
-              padding-top:55px;
+              padding-top:40px;
               margin-right: 36px;
                 .el-icon-edit-outline::before{
                   height:45px;
@@ -126,10 +126,10 @@ export default {
             }
             .form-right{
                 border-left: solid 1px #c9c9c9;
-                margin-top: 55px;
+                margin-top: 40px;
                 padding-left: 27px;
                 padding-top:-20px;
-                height:166px;
+                height:165px;
                 .form-item{
                     max-height:1.5em;
                     display: flex;

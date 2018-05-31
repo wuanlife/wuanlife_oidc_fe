@@ -3,14 +3,14 @@
   <div class="date-picker year" @click="open(1)" :class="{ 'date-picker-clicked': isClickY }">
       <span>{{ year }}<i class="el-icon-caret-bottom"></i></span>
       <ul v-if="isClickY">
-          <li v-for="n in (MaxYear - 1970)" :key="n" @click="picker(n,1)">{{ (1970 + n - 1)}}</li>
+          <li v-for="n in (MaxYear - 1970+1)" :key="n" @click="picker(n,1)">{{ (1970 + n - 1)}}</li>
       </ul>
   </div>
   <span>年</span>
   <div class="date-picker month" @click="open(2)" :class="{ 'date-picker-clicked': isClickM }">
       <span>{{ month }}<i class="el-icon-caret-bottom"></i></span>
       <ul v-if="isClickM">
-          <li v-for="n in Maxmonth" :key="n" @click="picker(n,2)">{{ n }}</li>
+          <li v-for="n in MaxMonth" :key="n" @click="picker(n,2)">{{ n }}</li>
       </ul>
   </div>
   <span>月</span>
@@ -30,7 +30,6 @@ export default {
   data () {
     return {
       MaxYear: num,
-      Maxmonth: 12,
       year: 2018,
       month: 1,
       day: 1,
@@ -42,6 +41,9 @@ export default {
   computed: {
     MaxDay: function () {
       const isLeap = (this.year % 4 === 0 && this.year % 100 !== 0) || this.year % 400 === 0
+      if (this.year === this.MaxYear && this.Month === new Date().getMonth() + 1) {
+        return new Date().getDate()
+      }
       if (isLeap) {
         if (this.month === 1 || this.month === 3 || this.month === 5 || this.month === 7 || this.month === 8 || this.month === 10 || this.month === 12) {
           return 31
@@ -59,6 +61,22 @@ export default {
           return 30
         }
       }
+    },
+    MaxMonth: function () {
+      if (this.year === this.MaxYear) {
+        const MonthNum = new Date().getMonth() + 1
+        return MonthNum
+      } else {
+        return 12
+      }
+    },
+    listendata: function () {
+      const {year, month, day} = this
+      return {
+        year,
+        month,
+        day
+      }
     }
   },
   methods: {
@@ -74,6 +92,7 @@ export default {
           this.day = value
           break
       }
+      console.log(this.MaxMonth)
     },
     open: function (value) {
       switch (value) {
@@ -87,6 +106,16 @@ export default {
           this.isClickD = !this.isClickD
           break
       }
+    }
+  },
+  watch: {
+    listendata: {
+      handler () {
+        if (this.day > this.MaxDay) {
+          this.day = this.MaxDay
+        }
+      },
+      deep: true
     }
   }
 }
@@ -114,7 +143,7 @@ export default {
       width: 100%;
       border-radius: 4px;
       border: solid 1px #99b3e3;
-      font-size: 16px;
+      font-size: 12px;
       color: rgba(0,0,0,0.5);
       padding: 10px 0 10px 0;
       overflow-y: scroll;
