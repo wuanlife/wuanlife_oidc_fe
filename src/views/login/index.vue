@@ -21,7 +21,7 @@
          -->
         </el-form-item>
       </el-form>
-      <div  class="getBack" ><router-link to="/signup" class="getBack">忘记密码?</router-link></div>
+      <div  class="getBack" ><router-link to="/findpsw" class="getBack">忘记密码?</router-link></div>
     </div>
   </div>
 </template>
