@@ -47,7 +47,7 @@ export default {
     },
     visibleChange () {
       this.isShowDrop = !this.isShowDrop
-    },
+    }
   }
 }
 </script>
