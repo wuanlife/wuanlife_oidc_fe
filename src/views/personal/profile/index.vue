@@ -1,8 +1,8 @@
 <template>
-  <div id="personal-data" class="personal-data view-container wl-card">
+  <div id="personal-data" class="personal-data view-container wl-card"  v-loading= "loadingF">
     <section>
-      <div class="personal-data-form" v-loading="loading1">
-          <div class="form-left" v-loading="loading">
+      <div class="personal-data-form">
+          <div class="form-left" v-loading="loadingI">
               <img v-bind:src="dafaultAvatarUrl" id="avatar" ref="avatar">
               <div class="upload" @click="changeAvatar"><a ref=""><icon-svg icon-class="edit_blue" class="icon"></icon-svg></a></div>
               <el-upload
@@ -14,14 +14,18 @@
                 ref="upload"
                 style="display:none">
                 <el-button id="img-input"
-                 size="small"
-                 type="primary">点击上传</el-button>
-                </el-upload>
+                  size="small"
+                  type="primary">点击上传
+                </el-button>
+              </el-upload>
+              <!--
+              <button @click="changeAvatar"><i class="el-icon-edit-outline avatar-icon "></i>修改</button>
+              -->
           </div>
           <div class="form-right">
               <div class="form-item">
                   <span>邮箱:</span>
-                  <p>123@qq.com</p>
+                  <p>{{mail}}</p>
               </div>
               <div class="form-item">
                   <span>昵称:</span>
@@ -30,9 +34,11 @@
               <div class="form-item">
                   <span>性别:</span>
                   <div class="form-item-sex">
-                      <el-radio  v-model="sex" label="male">男</el-radio>
-                      <el-radio  v-model="sex" label="female">女</el-radio>
-                      <el-radio  v-model="sex" label="secrecy">保密</el-radio>
+                      <el-radio-group v-model="sex">
+                          <el-radio label="male">男</el-radio>
+                          <el-radio label="female">女</el-radio>
+                          <el-radio label="secrecy">保密</el-radio>
+                      </el-radio-group>
                   </div>
               </div>
               <div class="form-item">
@@ -41,7 +47,7 @@
               </div>
           </div>
           <div class="btn">
-          <el-button type="primary" :loading="loading2">保存</el-button>
+          <el-button type="primary"  @click="setUserData" :loading="loadingB">保存</el-button>
           </div>
         </div>
     </section>
@@ -50,23 +56,24 @@
 
 <script>
 // import { mapGetters } from 'vuex'
-// import { Notification } from 'element-ui'
-
-// const QINIU_DOMAIN = '//7xlx4u.com1.z0.glb.clouddn.com/' // 图片服务器域名，展示时用
+import { Notification } from 'element-ui'
 import DatePicker from 'components/DatePicker'
+import { getToken } from 'api/qiniu'
+import { getUser, putUser } from 'api/user'
+const QINIU_DOMAIN = '//7xlx4u.com1.z0.glb.clouddn.com/' // 图片服务器域名，展示时用
 export default {
   name: 'personalData',
   data () {
     return {
-      sex: 'secrecy',
+      sex: '',
       mail: '',
-      name: '123',
+      name: '',
       dafaultAvatarUrl: 'http://7xlx4u.com1.z0.glb.clouddn.com/o_1aqt96pink2kvkhj13111r15tr7.jpg?imageView2/1/w/97/h/97',
       UPLOAD_ADDRESS: location.protocol === 'http:' ? 'http://upload.qiniu.com' : 'https://up.qbox.me',
       uploadData: {},
-      loading: false,
-      loading1: false,
-      loading2: false,
+      loadingF: true,
+      loadingI: false,
+      loadingB: false,
       default: {}
     }
   },
@@ -74,27 +81,115 @@ export default {
     DatePicker
   },
   computed: {
-    year () {
-      return this.$refs.datepicker.year
-    },
-    month () {
-      return this.$refs.datepicker.month
-    },
-    day () {
-      return this.$refs.datepicker.day
+    birthday: {
+      get: function () {
+        const daynum = this.$refs.datepicker.day
+        const monthnum = this.$refs.datepicker.month
+        const yearnum = this.$refs.datepicker.year
+        let day = daynum < 10 ? '0' + daynum : daynum
+        let month = monthnum < 10 ? '0' + monthnum : monthnum
+        return `${yearnum}-${month}-${day}`
+      },
+      set: function (val) {
+        const time = new Date(val)
+        this.$refs.datepicker.year = time.getFullYear()
+        this.$refs.datepicker.month = time.getMonth() + 1
+        this.$refs.datepicker.day = time.getDate()
+      }
     }
   },
+  mounted () {
+    this.init()
+  },
   methods: {
-    changeAvatar: function () {
+    async init () {
+      await getUser({id: this.$store.getters.user.uid}).then(res => {
+        this.mail = res.mail
+        this.sex = res.sex
+        this.name = res.name
+        this.dafaultAvatarUrl = res.avatar_url
+        this.birthday = res.birthday
+        this.default = res
+      }).catch(err => {
+        Notification.error({
+          message: err.data.error,
+          offset: 60
+        })
+      })
+      this.loadingF = false
+    },
+    changeAvatar () {
       const self = this
-      if (this.loading) {
+      if (this.loadingI) {
         return
       }
-      this.loading = true
+      this.loadingI = true
       setTimeout(function () {
-        self.loading = false
-      }, 1000)
+        self.loadingI = false
+      }, 10000)
       document.getElementById('img-input').click()
+    },
+    beforeUpload: function (file) {
+      return this.qnUpload(file)
+    },
+    qnUpload: function (file) {
+      const suffix = file.name.split('.')
+      const ext = suffix.splice(suffix.length - 1, 1)[0]
+      // TODO: 图片格式/大小限制
+      return getToken().then(res => {
+        this.uploadData = {
+          key: `image/${suffix.join('.')}_${new Date().getTime()}.${ext}`,
+          token: res['upload-token']
+        }
+      })
+    },
+    upScuccess: function (e, file, fileList) {
+      const url = QINIU_DOMAIN + e.key
+      this.$refs.avatar.setAttribute('src', url)
+      this.loadingI = false
+    },
+    upError: function (e, file, fileList) {
+      this.loadingI = false
+    },
+    async setUserData () {
+      this.loadingB = true
+      var changeUser = {}
+      if (this.default.name !== this.name) {
+        changeUser.name = this.name
+        this.default.name = this.name
+      }
+      if (this.default.sex !== this.sex) {
+        changeUser.sex = this.sex
+        this.default.sex = this.sex
+      }
+      if (this.default.birthday !== this.birthday) {
+        changeUser.birthday = this.birthday
+        this.default.birthday = this.birthday
+      }
+      if (this.default.avatar_url !== this.$refs.avatar.getAttribute('src')) {
+        changeUser.avatar_url = this.$refs.avatar.getAttribute('src')
+        this.default.avatar_url = this.$refs.avatar.getAttribute('src')
+      }
+      if (changeUser.name === undefined && changeUser.sex === undefined && changeUser.birthday === undefined && changeUser.avatar_url === undefined) {
+        this.loadingB = false
+        Notification.warning({
+          message: '请改变个人资料中某一项后，再提交！',
+          offset: 60
+        })
+        return
+      }
+      await putUser({id: this.$store.getters.user.uid, data: changeUser}).then(res => {
+        Notification.success({
+          message: '修改个人资料成功！',
+          offset: 60
+        })
+      }).catch(err => {
+        Notification.error({
+          message: err.data.error,
+          offset: 60
+        })
+      })
+      this.loadingB = false
     }
   }
 }
@@ -107,6 +202,7 @@ export default {
     border-radius: 4px;
     padding: 0px 111px 68px 45px;
     text-align: center;
+    height:356px;
     section{
         .personal-data-form{
             display: flex;
@@ -135,7 +231,7 @@ export default {
                 .upload:hover{
                     background-color:rgba(255,255,255,0.3);
                     .icon{
-                        color:gray;
+                        color:black;
                         width:25px;
                         height:25px;
                     }
@@ -216,11 +312,12 @@ export default {
             position: absolute;
             top:255px;
             left:210px;
+            width: 94px;
+            height:32px;
             button{
             padding: 0;
             width: 94px;
             height:32px;
-            background-color: #5677fc;
             border-radius: 4px;
             font-size: 15px;
             color: #ffffff;

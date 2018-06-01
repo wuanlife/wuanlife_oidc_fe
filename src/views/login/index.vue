@@ -28,6 +28,7 @@
 
 <script>
 import { login } from 'api/user'
+import { getAccess } from 'api/auth'
 import { Notification } from 'element-ui'
 export default {
   name: 'Login',
@@ -88,19 +89,24 @@ export default {
           password: this.form.password,
           client_id: client_id || 'wuan'
         }).then(res => {
-          this.$cookie.set(`${client_id}-id-token`, res["ID-Token"], 7);
+          this.$cookie.set(`${client_id || 'wuan'}-id-token`, res["ID-Token"], 7);
           Notification.success({
             message: "登录成功",
             offset: 60
           });
           const self = this;
 
+          // 解析token中的基本用户信息
           self.$store.commit('SET_USER', {
             ...JSON.parse(atob(res['ID-Token'].split('.')[1]))
           })
-          this.$router.push({ path: return_to });
+        }).then(getAccess)
+        .then((res) => {
+          this.$cookie.set(`${client_id || 'wuan'}-access-token`, res["Access-Token"], 7);
+          this.$router.push({ path: return_to || '/personal/profile' });
           this.loading = false;
-        }).catch(err => {
+        })
+        .catch(err => {
           Notification.error({
             message: err.data.error,
             offset: 60

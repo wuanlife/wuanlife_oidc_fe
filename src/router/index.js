@@ -61,10 +61,7 @@ export const constantRouterMap = [
     redirect: '/resetpwd/index',
     children: [{
       path: '',
-      component: Resetpwd,
-      meta: {
-        requireAuth: true
-      }
+      component: Resetpwd
     }]
   },
   {
@@ -120,7 +117,6 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  debugger
   if (to.meta && to.meta.requireAuth) { // 判断该路由是否需要登录权限
     if (store.state.user.uname) { // 通过vuex state获取当前的token是否存在
       next()

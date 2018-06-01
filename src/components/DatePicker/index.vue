@@ -41,7 +41,7 @@ export default {
   computed: {
     MaxDay: function () {
       const isLeap = (this.year % 4 === 0 && this.year % 100 !== 0) || this.year % 400 === 0
-      if (this.year === this.MaxYear && this.Month === new Date().getMonth() + 1) {
+      if (this.year === this.MaxYear && this.month === new Date().getMonth() + 1) {
         return new Date().getDate()
       }
       if (isLeap) {
@@ -92,7 +92,6 @@ export default {
           this.day = value
           break
       }
-      console.log(this.MaxMonth)
     },
     open: function (value) {
       switch (value) {

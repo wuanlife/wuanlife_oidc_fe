@@ -23,8 +23,8 @@ import {
   mapGetters
 } from 'vuex'
 import {
-  resetpassword
-} from 'api/auth'
+  resetPwd
+} from 'api/user'
 
 export default {
   name: 'index-visitor',
@@ -80,32 +80,36 @@ export default {
   mounted () {},
   methods: {
     submitForm (formName) {
+      debugger
       this.$refs[formName].validate((valid) => {
         this.loginForm.token = this.$route.query.token
         if (valid) {
           this.loading = true
           // resetpassword(this.loginForm);
-          return new Promise((resolve, reject) => {
-            resetpassword(this.loginForm).then(
-              res => {
-                this.$message({
-                  message: '重置密码成功!!',
-                  type: 'success',
-                  duration: 2000
-                })
-                this.$router.push({
-                  path: '/login'
-                })
-                this.loading = false
-              }).catch(error => {
+          resetPwd({
+            id: this.$route.query.id,
+            data: {
+              psd_token: this.$route.query.token,
+              new_psd: this.loginForm.confirmpassword
+            }
+          }).then(
+            res => {
               this.$message({
-                message: error.data.error,
-                type: 'error',
+                message: '重置密码成功!!',
+                type: 'success',
                 duration: 2000
               })
+              this.$router.push({
+                path: '/login'
+              })
               this.loading = false
-              reject(error)
+            }).catch(error => {
+            this.$message({
+              message: error.data.error,
+              type: 'error',
+              duration: 2000
             })
+            this.loading = false
           })
         } else {
           console.log('error submit!!')

@@ -2,8 +2,8 @@
   <div class="nav-user">
     <div class="nav-user-logined" v-if="user.uid">
         <el-dropdown trigger="click">
-          <span>
-            {{user.uname}}<icon-svg icon-class="triangle1" class="nav-user-triangle"></icon-svg>
+          <span class="text">
+            {{user.uname}}<icon-svg icon-class="triangle" class="nav-user-triangle"></icon-svg>
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item @click.native="handleLogout">退出登录</el-dropdown-item>
@@ -12,8 +12,8 @@
     </div>
     <!-- login bar (if not logined) -->
     <div v-else class="login-container">
-      <span><router-link :to="{path: `/authorize?client_id=wuan&response_type=code&state=maye&nonce=random`}">登录</router-link></span>
-      <span><router-link :to="{path: `/signup`}">注册</router-link></span>
+      <span><router-link class="text" :to="{path: `/authorize?client_id=wuan&response_type=code&state=maye&nonce=random`}">登录</router-link></span>
+      <span><router-link class="text" :to="{path: `/signup`}">注册</router-link></span>
     </div>
   </div>
 </template>
@@ -53,23 +53,33 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.login-container{
+.nav-user{
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  .nav-user-logined{
+    .text{
+      font-size:18px;
+      color:#ffffff;
+    }
+    .nav-user-triangle{
+      width:10px;
+      height:10px;
+      position: relative;
+      top:-4px;
+      left:3px;
+    }
+  }
+  .login-container {
   font-size: 18px;
   margin-left: 30px;
   color: #ffffff;
   span {
     padding: 0 14px;
-  }
-}
-.nav-user{
-  display: flex;
-  align-items: center;
-  .login-container {
-  color: #ffffff;
-  font-size:18px;
-  text-decoration: none;
-  span {
-    padding: 0 14px;
+    .text{
+      color:#ffffff;
+      text-decoration: none;
+    }
     &:hover{
       font-weight: bold;
     }
