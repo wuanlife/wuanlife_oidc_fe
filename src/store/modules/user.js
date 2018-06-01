@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import putUser from 'api/user'
 
 const user = {
   state: {},
@@ -16,6 +17,13 @@ const user = {
   },
 
   actions: {
+    async PutUser ({ commit, state }, params) {
+      const backMessage = await putUser(params)
+      const user = Object.create(null)
+      Object.assign(user, state, params)
+      commit('SET_USER', user)
+      return backMessage
+    }
     // // 邮箱登录
     // async Login ({ commit }, params) {
     //   const userWithToken = await login(params)

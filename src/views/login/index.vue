@@ -95,7 +95,6 @@ export default {
             offset: 60
           });
           const self = this;
-
           // 解析token中的基本用户信息
           self.$store.commit('SET_USER', {
             ...JSON.parse(atob(res['ID-Token'].split('.')[1]))

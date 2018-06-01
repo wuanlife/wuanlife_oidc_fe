@@ -7,12 +7,10 @@
         <span slot="label" class="tabspan"><icon-svg iconClass="renyuanjieshao" class="tabicon"></icon-svg>个人资料</span>
         <profile-tab></profile-tab>
       </el-tab-pane>
-      <div class="jg"></div>
       <el-tab-pane label="修改密码" name="changepwd">
         <span slot="label" class="tabspan tabspan1"><icon-svg iconClass="mima" class="tabicon"></icon-svg>修改密码</span>
         <changepwd-tab></changepwd-tab>
       </el-tab-pane>
-      <div class="jg"></div>
       <el-tab-pane label="积分兑换" name="points">
         <span slot="label" class="tabspan tabspan2"><icon-svg iconClass="jifen1" class="tabicon"></icon-svg>积分兑换</span>
         <points-tab></points-tab>
@@ -67,14 +65,25 @@ export default {
       box-shadow: 0px 0px 2px 2px #ecedee;
       text-align: center;
       border-radius: 5px;
+      /deep/
+    /*
+    .el-tabs__item{
+    }
+    .el-tabs__nav{
+      .el-tabs__active-bar{
+      width:120px;
+      left: 45px;
+      transform: translateX(45px);
+      }
+    }
+    */
     .el-tabs{
     width: 695px;
     margin: 0 auto;
     padding-top: 13px;
     padding-bottom: 13px;
     .tabspan{
-      font-size: 18px;
-      width:112px;
+      font-size:18px;
       padding:10px
     }
     .tabicon{

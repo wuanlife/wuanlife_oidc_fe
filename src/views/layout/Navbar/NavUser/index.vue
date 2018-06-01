@@ -2,7 +2,7 @@
   <div class="nav-user">
     <div class="nav-user-logined" v-if="user.uid">
         <el-dropdown trigger="click">
-          <span class="text">
+          <span class="text" @click="consol">
             {{user.uname}}<icon-svg icon-class="triangle" class="nav-user-triangle"></icon-svg>
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -47,6 +47,9 @@ export default {
     },
     visibleChange () {
       this.isShowDrop = !this.isShowDrop
+    },
+    consol () {
+      console.log(this.user)
     }
   }
 }
