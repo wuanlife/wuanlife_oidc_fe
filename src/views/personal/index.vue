@@ -78,6 +78,7 @@ export default {
       /deep/
       .el-tab-pane{
         width:120px;
+        height:356px;
       }
     }
   }

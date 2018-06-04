@@ -17,7 +17,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { resetpsw } from 'api/auth'
+import { findPwd } from 'api/user'
 
 export default {
   name: 'index-visitor',
@@ -61,24 +61,21 @@ export default {
       // console.log(this.loginForm.email+valid);
         if (valid) {
           this.loading = true
-          return new Promise((resolve, reject) => {
-            resetpsw(this.loginForm).then(
-              res => {
-                this.loading = false
-                this.$message({
-                  message: '验证信息已飞到你的邮箱，快快去查看!!',
-                  type: 'success',
-                  duration: 1000
-                })
-              }).catch(error => {
-              this.$message({
-                message: error.data.error,
-                type: 'error',
-                duration: 2000
-              })
+          findPwd({email: this.loginForm.email}).then(
+            res => {
               this.loading = false
-              reject(error)
+              this.$message({
+                message: '验证信息已飞到你的邮箱，快快去查看!!',
+                type: 'success',
+                duration: 1000
+              })
+            }).catch(error => {
+            this.$message({
+              message: error.data.error,
+              type: 'error',
+              duration: 2000
             })
+            this.loading = false
           })
         } else {
           console.log('error submit!!')

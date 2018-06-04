@@ -4,6 +4,7 @@
       <div class="personal-data-form" v-loading="loading1">
           <div class="form-left" v-loading="loading">
               <img v-bind:src="dafaultAvatarUrl" id="avatar" ref="avatar">
+              <div class="upload" @click="changeAvatar"><a ref=""><icon-svg icon-class="edit_blue" class="icon"></icon-svg></a></div>
               <el-upload
                 :action="UPLOAD_ADDRESS"
                 :before-upload='beforeUpload'
@@ -13,15 +14,16 @@
                 ref="upload"
                 style="display:none">
                 <el-button id="img-input"
-                 size="small"
-                 type="primary">点击上传</el-button>
-                </el-upload>
-              <button><i class="el-icon-edit-outline avatar-icon "></i>修改</button>
+                  size="small"
+                  type="primary">点击上传
+                </el-button>
+              </el-upload>
+              <button @click="changeAvatar"><i class="el-icon-edit-outline avatar-icon "></i>修改</button>
           </div>
           <div class="form-right">
               <div class="form-item">
                   <span>邮箱:</span>
-                  <p>123@qq.com</p>
+                  <p>{{mail}}</p>
               </div>
               <div class="form-item">
                   <span>昵称:</span>
@@ -30,9 +32,11 @@
               <div class="form-item">
                   <span>性别:</span>
                   <div class="form-item-sex">
-                      <el-radio  v-model="sex" label="male">男</el-radio>
-                      <el-radio  v-model="sex" label="female">女</el-radio>
-                      <el-radio  v-model="sex" label="secrecy">保密</el-radio>
+                      <el-radio-group v-model="sex">
+                          <el-radio label="male">男</el-radio>
+                          <el-radio label="female">女</el-radio>
+                          <el-radio label="secrecy">保密</el-radio>
+                      </el-radio-group>
                   </div>
               </div>
               <div class="form-item">
@@ -41,7 +45,7 @@
               </div>
           </div>
           <div class="btn">
-          <el-button type="primary" :loading="loading2">保存</el-button>
+          <el-button type="primary" :loading="loading2" @click="handleSave">保存</el-button>
           </div>
         </div>
     </section>
@@ -54,20 +58,24 @@
 
 // const QINIU_DOMAIN = '//7xlx4u.com1.z0.glb.clouddn.com/' // 图片服务器域名，展示时用
 import DatePicker from 'components/DatePicker'
+import { getToken } from 'api/qiniu'
+import { getUser } from 'api/user'
+const QINIU_DOMAIN = '//7xlx4u.com1.z0.glb.clouddn.com/' // 图片服务器域名，展示时用
 export default {
   name: 'personalData',
   data () {
     return {
-      sex: 'female',
+      sex: 'secrecy',
       mail: '',
-      name: '',
+      name: '123',
       dafaultAvatarUrl: 'http://7xlx4u.com1.z0.glb.clouddn.com/o_1aqt96pink2kvkhj13111r15tr7.jpg?imageView2/1/w/97/h/97',
       UPLOAD_ADDRESS: location.protocol === 'http:' ? 'http://upload.qiniu.com' : 'https://up.qbox.me',
       uploadData: {},
       loading: false,
       loading1: false,
       loading2: false,
-      default: {}
+      default: {},
+      birthday: '1990-12-12'
     }
   },
   components: {
@@ -84,7 +92,52 @@ export default {
       return this.$refs.datepicker.day
     }
   },
+  mounted () {
+    getUser({id: this.$store.getters.user.uid}).then(res => {
+      this.mail = res.mail
+      this.sex = res.sex
+      this.name = res.name
+      this.defaultAvatarUrl = res.avatar_url
+      this.birthday = res.birthday
+    })
+  },
   methods: {
+    changeAvatar () {
+      const self = this
+      if (this.loading) {
+        return
+      }
+      this.loading = true
+      setTimeout(function () {
+        self.loading = false
+      }, 10000)
+      document.getElementById('img-input').click()
+    },
+    handleSave () {
+
+    },
+    beforeUpload: function (file) {
+      return this.qnUpload(file)
+    },
+    qnUpload: function (file) {
+      const suffix = file.name.split('.')
+      const ext = suffix.splice(suffix.length - 1, 1)[0]
+      // TODO: 图片格式/大小限制
+      return getToken().then(res => {
+        this.uploadData = {
+          key: `image/${suffix.join('.')}_${new Date().getTime()}.${ext}`,
+          token: res['upload-token']
+        }
+      })
+    },
+    upScuccess: function (e, file, fileList) {
+      const url = QINIU_DOMAIN + e.key
+      this.$refs.avatar.setAttribute('src', url)
+      this.loading = false
+    },
+    upError: function (e, file, fileList) {
+      this.loading = false
+    }
   }
 }
 </script>
@@ -101,11 +154,33 @@ export default {
             display: flex;
             justify-content: space-between;
             .form-left{
-              padding-top:55px;
+              padding-top:40px;
               margin-right: 36px;
                 .el-icon-edit-outline::before{
                   height:45px;
                   width:45px;
+                }
+                .upload{
+                    display: block;
+                    height: 98px;
+                    width: 98px;
+                    border-radius: 100%;
+                    background-color:transparent;
+                    position: absolute;
+                    top:41px;
+                    left:46px;
+                    .icon{
+                        margin:40% 40%;
+                        color:transparent;
+                    }
+                }
+                .upload:hover{
+                    background-color:rgba(255,255,255,0.3);
+                    .icon{
+                        color:gray;
+                        width:25px;
+                        height:25px;
+                    }
                 }
                 img{
                     display: block;
@@ -126,10 +201,10 @@ export default {
             }
             .form-right{
                 border-left: solid 1px #c9c9c9;
-                margin-top: 55px;
+                margin-top: 40px;
                 padding-left: 27px;
                 padding-top:-20px;
-                height:166px;
+                height:165px;
                 .form-item{
                     max-height:1.5em;
                     display: flex;
