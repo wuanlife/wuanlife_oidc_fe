@@ -1,11 +1,18 @@
 import Vue from 'vue'
 
 const user = {
-  state: {},
+  state: {
+    uid: null,
+    uname: null
+  },
   mutations: {
     SET_USER: (state, userInfo) => {
       for (const key in userInfo) {
-        Vue.set(state, key, userInfo[key])
+        if (key in state) {
+          state[key] = userInfo[key]
+        } else {
+          Vue.set(state, key, userInfo[key])
+        }
       }
     },
     CLEAR_USER: state => {

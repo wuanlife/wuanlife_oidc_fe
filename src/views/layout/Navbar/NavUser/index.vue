@@ -1,6 +1,6 @@
 <template>
   <div class="nav-user">
-    <div class="nav-user-logined" v-if="user.uid">
+    <div class="nav-user-logined" v-if="user && user.uid">
         <el-dropdown trigger="click">
           <span>
             {{user.uname}}<icon-svg icon-class="triangle1" class="nav-user-triangle"></icon-svg>
