@@ -95,7 +95,7 @@ export default {
             offset: 60
           });
           const self = this;
-          // 解析token中的基本用户信息
+          // 解析token中的基本用户信息，并存入vuex，localstorage
           self.$store.commit('SET_USER', {
             ...JSON.parse(atob(res['ID-Token'].split('.')[1]))
           })
