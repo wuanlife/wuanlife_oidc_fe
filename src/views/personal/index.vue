@@ -67,16 +67,14 @@ export default {
       border-radius: 5px;
       /deep/
     /*
-    .el-tabs__item{
-    }
     .el-tabs__nav{
-      .el-tabs__active-bar{
-      width:120px;
-      left: 45px;
-      transform: translateX(45px);
-      }
+      width:690px;
+      display: flex;
+      justify-content: space-between;
+    }*/
+    .el-tabs__item{
+      width:230px;
     }
-    */
     .el-tabs{
     width: 695px;
     margin: 0 auto;
@@ -84,7 +82,7 @@ export default {
     padding-bottom: 13px;
     .tabspan{
       font-size:18px;
-      padding:10px
+      padding:5px
     }
     .tabicon{
       width:22px;

@@ -12,7 +12,7 @@
     </div>
     <!-- login bar (if not logined) -->
     <div v-else class="login-container">
-      <span><router-link class="text" :to="{path: `/authorize?client_id=wuan&response_type=code&state=maye&nonce=random`}">登录</router-link></span>
+      <span><router-link class="text" :to="{path: `/login?client_id=wuan`}">登录</router-link></span>
       <span><router-link class="text" :to="{path: `/signup`}">注册</router-link></span>
     </div>
   </div>

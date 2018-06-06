@@ -154,7 +154,7 @@ export default {
     async setUserData () {
       this.loadingB = true
       var changeUser = {}
-      if (this.default.name !== this.name) {
+      if (this.name !== '' && this.default.name !== this.name) {
         changeUser.name = this.name
         this.default.name = this.name
       }
@@ -183,18 +183,18 @@ export default {
           message: '修改个人资料成功！',
           offset: 60
         })
+        if (changeUser.name) {
+          const self = this
+          const data = this.$store.getters.user
+          data.uname = changeUser.name
+          self.$store.commit('SET_USER', data)
+        }
       }).catch(err => {
         Notification.error({
           message: err.data.error,
           offset: 60
         })
       })
-      if (changeUser.name) {
-        const self = this
-        const data = this.$store.getters.user
-        data.uname = changeUser.name
-        self.$store.commit('SET_USER', data)
-      }
       this.loadingB = false
     }
   }
