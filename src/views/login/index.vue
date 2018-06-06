@@ -95,15 +95,14 @@ export default {
             offset: 60
           });
           const self = this;
-
-          // 解析token中的基本用户信息
+          // 解析token中的基本用户信息，并存入vuex，localstorage
           self.$store.commit('SET_USER', {
             ...JSON.parse(atob(res['ID-Token'].split('.')[1]))
           })
         }).then(getAccess)
         .then((res) => {
           this.$cookie.set(`${client_id || 'wuan'}-access-token`, res["Access-Token"], 7);
-          this.$router.push({ path: return_to });
+          this.$router.push({ path: return_to || '/personal/profile' });
           this.loading = false;
         })
         .catch(err => {

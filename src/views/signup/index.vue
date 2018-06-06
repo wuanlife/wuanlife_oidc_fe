@@ -116,7 +116,6 @@ export default {
           message: '注册成功',
           offset: 60
         })
-        
         this.$router.push({path: return_to || '/'})
       }).catch(err => {
          Notification.error({
