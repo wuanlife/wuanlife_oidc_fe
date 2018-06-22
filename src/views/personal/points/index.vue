@@ -5,10 +5,10 @@
         <span class="normaltext">您当前拥有</span>
         <span class="moviepoints">影视积分</span>
         <span class="movieicon">  <i class="el-icon-date"></i></span>
-        <span class="mpointscolor">{{moviepoints}} 54</span>
+        <span class="mpointscolor">{{moviepoints}}</span>
         <span class="coin">午安币</span>
         <span class="coinicon"><i class="el-icon-date"></i></span>
-        <span class="coincolor"> {{coin}} 16</span>
+        <span class="coincolor"> {{coin}}</span>
       </div>
       <div class="exchange">
         <span class="normaltext">影视积分</span>
@@ -23,14 +23,21 @@
 </template>
 
 <script>
+// import { Notification } from 'element-ui'
 export default {
   name: 'pointsTab',
   data () {
     return {
-      input: ''
+      input: '',
+      moviepoints: '',
+      coins: ''
     }
   },
+  methods: {
+  },
   computed: {
+  },
+  mounted () {
   }
 }
 </script>

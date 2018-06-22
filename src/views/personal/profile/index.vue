@@ -103,20 +103,38 @@ export default {
   },
   methods: {
     async init () {
-      await getUser({id: this.$store.getters.user.uid}).then(res => {
-        this.mail = res.mail
-        this.sex = res.sex
-        this.name = res.name
-        this.dafaultAvatarUrl = res.avatar_url
-        this.birthday = res.birthday
-        this.default = res
-      }).catch(err => {
-        Notification.error({
-          message: err.data.error,
-          offset: 60
+      if (this.$store.getters.profile.mail !== '') {
+        this.mail = this.$store.getters.profile.mail
+        this.sex = this.$store.getters.profile.sex
+        this.name = this.$store.getters.profile.name
+        this.dafaultAvatarUrl = this.$store.getters.profile.avatar_url
+        this.birthday = this.$store.getters.profile.birthday
+        this.default = this.$store.getters.profile
+        this.loadingF = false
+      } else {
+        await getUser({id: this.$store.getters.user.uid}).then(res => {
+          this.mail = res.mail
+          this.sex = res.sex
+          this.name = res.name
+          this.dafaultAvatarUrl = res.avatar_url
+          this.birthday = res.birthday
+          this.default = res
+          var profile = {
+            mail: this.mail,
+            sex: this.sex,
+            name: this.name,
+            dafaultAvatarUrl: this.dafaultAvatarUrl,
+            birthday: this.birthday
+          }
+          this.$store.commit('SET_PROFILE', profile)
+        }).catch(err => {
+          Notification.error({
+            message: err.data.error,
+            offset: 60
+          })
         })
-      })
-      this.loadingF = false
+        this.loadingF = false
+      }
     },
     changeAvatar () {
       const self = this
@@ -146,6 +164,7 @@ export default {
     upScuccess: function (e, file, fileList) {
       const url = QINIU_DOMAIN + e.key
       this.$refs.avatar.setAttribute('src', url)
+      this.dafaultAvatarUrl = url
       this.loadingI = false
     },
     upError: function (e, file, fileList) {
@@ -183,6 +202,14 @@ export default {
           message: '修改个人资料成功！',
           offset: 60
         })
+        var profile = {
+          mail: this.mail,
+          sex: this.sex,
+          name: this.name,
+          dafaultAvatarUrl: this.dafaultAvatarUrl,
+          birthday: this.birthday
+        }
+        this.$store.commit('SET_PROFILE', profile)
         if (changeUser.name) {
           const self = this
           const data = this.$store.getters.user

@@ -39,7 +39,7 @@ export default {
     }
   },
   computed: {
-    MaxDay: function () {
+    MaxDay () {
       const isLeap = (this.year % 4 === 0 && this.year % 100 !== 0) || this.year % 400 === 0
       if (this.year === this.MaxYear && this.month === new Date().getMonth() + 1) {
         return new Date().getDate()
@@ -62,7 +62,7 @@ export default {
         }
       }
     },
-    MaxMonth: function () {
+    MaxMonth () {
       if (this.year === this.MaxYear) {
         const MonthNum = new Date().getMonth() + 1
         return MonthNum
@@ -70,7 +70,7 @@ export default {
         return 12
       }
     },
-    listendata: function () {
+    listendata () {
       const {year, month, day} = this
       return {
         year,
@@ -80,7 +80,7 @@ export default {
     }
   },
   methods: {
-    picker: function (value, num) {
+    picker (value, num) {
       switch (num) {
         case 1:
           this.year = 1970 + value - 1
@@ -93,7 +93,7 @@ export default {
           break
       }
     },
-    open: function (value) {
+    open (value) {
       switch (value) {
         case 1:
           this.isClickY = !this.isClickY

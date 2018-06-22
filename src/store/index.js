@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import user from './modules/user'
+import profile from './modules/profile'
 import getters from './getters'
 
 import VuexPersistence from 'vuex-persist'
@@ -14,7 +15,8 @@ const vuexLocal = new VuexPersistence({
 
 const store = new Vuex.Store({
   modules: {
-    user
+    user,
+    profile
   },
   getters,
   plugins: [vuexLocal.plugin]
