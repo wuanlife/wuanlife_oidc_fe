@@ -71,3 +71,29 @@ export function resetPwd({id, data}) {
     data: data
   })
 }
+
+// 获取午安积分
+export function getUserPoints({id}) {
+  return fetch({
+    url: `/users/${id}/wuan_points`,
+    method: 'get'
+  })
+}
+
+// 获取午安积分列表
+export function getPointslist({id}) {
+  return fetch({
+    url: `/users/${id}/points_list`,
+    method: 'get'
+  })
+}
+
+
+// 兑换积分
+export function changePoints({id, data}) {
+  return fetch({
+    url: `/users/${id}/points`,
+    method: 'put',
+    data: data
+  })
+}

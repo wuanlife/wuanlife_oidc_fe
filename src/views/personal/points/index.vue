@@ -5,39 +5,82 @@
         <span class="normaltext">您当前拥有</span>
         <span class="moviepoints">影视积分</span>
         <span class="movieicon">  <i class="el-icon-date"></i></span>
-        <span class="mpointscolor">{{moviepoints}}</span>
+        <span class="mpointscolor">{{this.moviepoints}}</span>
         <span class="coin">午安币</span>
         <span class="coinicon"><i class="el-icon-date"></i></span>
-        <span class="coincolor"> {{coin}}</span>
+        <span class="coincolor"> {{this.coin}}</span>
       </div>
       <div class="exchange">
         <span class="normaltext">影视积分</span>
         <span class="normaltext">兑换</span>
-        <el-input v-model="input" ></el-input>
+        <el-input :rules="PointsRules" v-model="input" ></el-input>
         <span class="normaltext">午安币</span>
         <span class="normaltext">（1影视积分=4午安币）</span>
       </div>
-        <el-button type="primary" >兑换</el-button>
+        <el-button @click="exchangePoints" :loading="loading" type="primary" >兑换</el-button>
   </div>
   </div>
 </template>
 
 <script>
-// import { Notification } from 'element-ui'
+import { Notification } from 'element-ui'
+import { getUserPoints, getPointslist, changePoints } from 'api/user'
 export default {
   name: 'pointsTab',
   data () {
+    var validatePoints = (rule, value, callback) => {
+      if (value === '') {
+        callback()
+      } else if (value > (this.moviepoints / this.exchange_rate)) {
+        callback(new Error('当前积分不足'))
+      } else {
+        callback()
+      }
+    }
     return {
+      loading: false,
       input: '',
+      coin: '',
       moviepoints: '',
-      coins: ''
+      exchange_rate: '',
+      exchangeid: '',
+      PointsRules: {
+        input: [{ validator: validatePoints, trigger: 'blur' }]
+
+      }
     }
   },
-  methods: {
-  },
-  computed: {
-  },
   mounted () {
+    this.init()
+  },
+  methods: {
+    async init () {
+      await getUserPoints({id: this.$store.getters.user.uid}).then(res => {
+        this.coin = res.points
+      })
+      await getPointslist({id: this.$store.getters.user.uid}).then(res => {
+        this.moviepoints = res.app['0'].points
+        this.exchange_rate = res.app['0'].exchange_rate
+        this.exchangeid = res.app['0'].id
+      })
+    },
+    async exchangePoints () {
+      await changePoints({
+        id: this.$store.getters.user.uid, data: {sub_app: this.exchangeid, sub_points: this.input}}).then(res => {
+        Notification.info({
+          message: '兑换成功！',
+          offset: 60
+        })
+        setTimeout(() => {
+          this.$router.push({ path: '/' })
+        }, 3000)
+      }).catch(err => {
+        Notification.error({
+          message: err.data.error,
+          offset: 60
+        })
+      })
+    }
   }
 }
 </script>
