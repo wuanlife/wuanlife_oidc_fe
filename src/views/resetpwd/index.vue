@@ -80,7 +80,6 @@ export default {
   mounted () {},
   methods: {
     submitForm (formName) {
-      debugger
       this.$refs[formName].validate((valid) => {
         this.loginForm.token = this.$route.query.token
         if (valid) {
