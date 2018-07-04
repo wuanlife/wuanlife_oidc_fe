@@ -35,19 +35,10 @@
 import { signup } from 'api/user'
 import { Notification } from 'element-ui'
 import { mapGetters } from 'vuex'
+import { getLength } from 'utils/index'
 export default {
   name: 'Signup',
   data () {
-    // 获取字符串长度，中文长度为2
-    function getLength (str) {
-      let charLength = 0
-      for (let i = 0; i < str.length; i++) {
-        let sonChar = str.charAt(i)
-        let china = /^[\u4e00-\u9fa5]*$/
-        china.test(sonChar) ? charLength += 2 : charLength += 1
-      }
-      return charLength
-    }
     const validateUsername = (rule, value, callback) => {
       var myregName = /^[0-9a-zA-Z\u4E00-\u9FA5_]*$/
       if (value === '') {

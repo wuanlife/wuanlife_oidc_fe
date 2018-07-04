@@ -71,21 +71,6 @@ export function getQueryObject (url) {
   return obj
 }
 
-/**
- *get getByteLen
- * @param {Sting} val input value
- * @returns {number} output value
- */
-export function getByteLen (val) {
-  let len = 0
-  for (let i = 0; i < val.length; i++) {
-    if (val[i].match(/[^\x00-\xff]/ig) != null) {
-      len += 1
-    } else { len += 0.5 }
-  }
-  return Math.floor(len)
-}
-
 export function cleanArray (actual) {
   const newArray = []
   for (let i = 0; i < actual.length; i++) {
@@ -276,4 +261,14 @@ export const storeWithExpiration = {
     }
     return info.val
   }
+}
+
+export function getLength (str) {
+  let charLength = 0
+  for (let i = 0; i < str.length; i++) {
+    let sonChar = str.charAt(i)
+    let china = /^[\u4e00-\u9fa5]*$/
+    china.test(sonChar) ? charLength += 2 : charLength += 1
+  }
+  return charLength
 }

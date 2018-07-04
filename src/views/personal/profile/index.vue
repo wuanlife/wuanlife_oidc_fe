@@ -30,7 +30,6 @@
               <div class="form-item">
                   <span>昵称:</span>
                   <el-input v-model="name" clearable></el-input>
-                  <span v-if="isErrName" style="font-size:6px;color:red;">{{errMsg}}</span>
               </div>
               <div class="form-item">
                   <span>性别:</span>
@@ -83,28 +82,6 @@ export default {
     DatePicker
   },
   computed: {
-    isErrName: function () {
-      function getLength (str) {
-        let charLength = 0
-        for (let i = 0; i < str.length; i++) {
-          let sonChar = str.charAt(i)
-          let china = /^[\u4e00-\u9fa5]*$/
-          china.test(sonChar) ? charLength += 2 : charLength += 1
-        }
-        return charLength
-      }
-      let name = this.name
-      let myregName = /^[0-9a-zA-Z\u4E00-\u9FA5_]*$/
-      if (name === '') {
-        return true
-      } else if (!myregName.test(name)) {
-        return true
-      } else if (getLength(name) > 14 || getLength(name) < 1) {
-        return true
-      } else {
-        return false
-      }
-    },
     birthday: {
       get: function () {
         const daynum = this.$refs.datepicker.day
@@ -140,9 +117,7 @@ export default {
           this.mail = res.mail
           this.sex = res.sex
           this.name = res.name
-          if (res.avatar_url !== 'www.fake.jpg') {
-            this.dafaultAvatarUrl = res.avatar_url
-          }
+          this.dafaultAvatarUrl = res.avatar_url
           this.birthday = res.birthday
           this.default = res
           var profile = {
@@ -200,7 +175,7 @@ export default {
     async setUserData () {
       this.loadingB = true
       var changeUser = {}
-      if (!this.isErrName && this.default.name !== this.name) {
+      if (this.name !== '' && this.default.name !== this.name) {
         changeUser.name = this.name
         this.default.name = this.name
       }
@@ -216,8 +191,6 @@ export default {
         changeUser.avatar_url = this.$refs.avatar.getAttribute('src')
         this.default.avatar_url = this.$refs.avatar.getAttribute('src')
       }
-      console.log(this.default)
-      console.log(changeUser)
       if (changeUser.name === undefined && changeUser.sex === undefined && changeUser.birthday === undefined && changeUser.avatar_url === undefined) {
         this.loadingB = false
         Notification.warning({
