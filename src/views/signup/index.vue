@@ -35,6 +35,7 @@
 import { signup } from 'api/user'
 import { Notification } from 'element-ui'
 import { mapGetters } from 'vuex'
+import { getLength } from 'utils/index'
 export default {
   name: 'Signup',
   data () {
@@ -44,6 +45,8 @@ export default {
         callback(new Error('请输入用户名'))
       } else if (!myregName.test(value)) {
         callback(new Error('只允许中文、数字、字母和下划线！'))
+      } else if (getLength(value) > 14 || getLength(value) < 1) {
+        callback(new Error('只允许1-7个汉字或者1-14个字符'))
       } else {
         callback()
       }
@@ -73,8 +76,7 @@ export default {
       },
       rules: {
         username: [
-          { validator: validateUsername, trigger: 'blur' },
-          { min: 6, max: 18, message: '请输入6-18位字符作为昵称!', trigger: 'blur' }
+          { validator: validateUsername, trigger: 'blur' }
         ],
         email: [
           { validator: validateEmail, trigger: 'blur' },

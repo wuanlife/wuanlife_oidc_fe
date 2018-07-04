@@ -74,6 +74,7 @@ export default {
       loadingF: true,
       loadingI: false,
       loadingB: false,
+      errMsg: '',
       default: {}
     }
   },
@@ -134,6 +135,7 @@ export default {
           })
         })
         this.loadingF = false
+        this.errMsg = '昵称格式错误'
       }
     },
     changeAvatar () {
