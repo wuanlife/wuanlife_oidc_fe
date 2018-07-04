@@ -147,7 +147,7 @@ export default {
         .el-input {
           width: 200px;
           /deep/ input {
-            padding-left: 18px;
+            padding-left: 11px;
             font-size: 12px;
             height: 32px;
             color: #434343;

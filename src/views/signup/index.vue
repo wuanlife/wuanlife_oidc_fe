@@ -38,12 +38,24 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Signup',
   data () {
+    // 获取字符串长度，中文长度为2
+    function getLength (str) {
+      let charLength = 0
+      for (let i = 0; i < str.length; i++) {
+        let sonChar = str.charAt(i)
+        let china = /^[\u4e00-\u9fa5]*$/
+        china.test(sonChar) ? charLength += 2 : charLength += 1
+      }
+      return charLength
+    }
     const validateUsername = (rule, value, callback) => {
       var myregName = /^[0-9a-zA-Z\u4E00-\u9FA5_]*$/
       if (value === '') {
         callback(new Error('请输入用户名'))
       } else if (!myregName.test(value)) {
         callback(new Error('只允许中文、数字、字母和下划线！'))
+      } else if (getLength(value) > 14 || getLength(value) < 1) {
+        callback(new Error('只允许1-7个汉字或者1-14个字符'))
       } else {
         callback()
       }
@@ -73,8 +85,7 @@ export default {
       },
       rules: {
         username: [
-          { validator: validateUsername, trigger: 'blur' },
-          { min: 6, max: 18, message: '请输入6-18位字符作为昵称!', trigger: 'blur' }
+          { validator: validateUsername, trigger: 'blur' }
         ],
         email: [
           { validator: validateEmail, trigger: 'blur' },
