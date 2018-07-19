@@ -31,6 +31,9 @@ export default {
     ...mapGetters(['user'])
   },
   mounted () {
+    if (document.cookie.indexOf('wuan-id-token') === -1) {
+      window.localStorage.clear()
+    }
   },
   updated () {
   },
@@ -38,7 +41,6 @@ export default {
     handleLogout () {
       this.$cookie.delete('wuan-id-token')
       this.$cookie.delete('wuan-access-token')
-
       this.$store.commit('CLEAR_USER')
       location.reload() // 为了重新实例化vue-router对象 避免bug
     },
