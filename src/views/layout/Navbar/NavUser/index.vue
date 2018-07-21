@@ -30,7 +30,7 @@ export default {
   computed: {
     ...mapGetters(['user'])
   },
-  mounted () {
+  created () {
     if (document.cookie.indexOf('wuan-id-token') === -1) {
       window.localStorage.clear()
     }
