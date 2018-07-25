@@ -30,8 +30,12 @@ export default {
   computed: {
     ...mapGetters(['user'])
   },
-  beforecreated () {
+  created () {
     if (document.cookie.indexOf('wuan-id-token') === -1) {
+      if(this.user.uid){
+        Vue.delete(this.user,'uname')
+        Vue.delete(this.user,'uid')
+      }
       window.localStorage.clear()
     }
   },
