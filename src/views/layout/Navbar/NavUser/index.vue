@@ -32,9 +32,9 @@ export default {
   },
   created () {
     if (document.cookie.indexOf('wuan-id-token') === -1) {
-      if(this.user.uid){
-        Vue.delete(this.user,'uname')
-        Vue.delete(this.user,'uid')
+      if (this.user.uid) {
+        this.$delete(this.user, 'uname')
+        this.$delete(this.user, 'uid')
       }
       window.localStorage.clear()
     }
