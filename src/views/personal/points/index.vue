@@ -15,7 +15,7 @@
         <span class="normaltext">兑换</span>
         <el-input :rules="PointsRules" v-model="input" ></el-input>
         <span class="normaltext">午安币</span>
-        <span class="normaltext">（1影视积分=4午安币）</span>
+        <span class="normaltext">（4影视积分=1午安币）</span>
       </div>
         <el-button @click="exchangePoints" :loading="loading" type="primary" >兑换</el-button>
   </div>
