@@ -11,9 +11,15 @@
         <span slot="label" class="tabspan tabspan1"><icon-svg iconClass="mima" class="tabicon"></icon-svg>修改密码</span>
         <changepwd-tab></changepwd-tab>
       </el-tab-pane>
+      <!--
       <el-tab-pane label="积分兑换" name="points">
         <span slot="label" class="tabspan tabspan2"><icon-svg iconClass="jifen1" class="tabicon"></icon-svg>积分兑换</span>
         <points-tab></points-tab>
+      </el-tab-pane>
+      -->
+      <el-tab-pane label="签到" name="points">
+        <span slot="label" class="tabspan tabspan2"><icon-svg iconClass="jifen1" class="tabicon"></icon-svg>签到</span>
+        <sign-tab></sign-tab>
       </el-tab-pane>
     </el-tabs>
      </div>
@@ -21,7 +27,8 @@
 </template>
 <script>
 import ChangepwdTab from './changepwd'
-import PointsTab from './points'
+// import PointsTab from './points'
+import SignTab from './sign'
 import ProfileTab from './profile'
 
 export default {
@@ -32,7 +39,8 @@ export default {
   },
   components: {
     'changepwd-tab': ChangepwdTab,
-    'points-tab': PointsTab,
+    // 'points-tab': PointsTab,
+    'sign-tab': SignTab,
     'profile-tab': ProfileTab
   },
 
