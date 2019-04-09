@@ -18,7 +18,7 @@
       </el-tab-pane>
       -->
       <el-tab-pane label="签到" name="points">
-        <span slot="label" class="tabspan tabspan2"><icon-svg iconClass="jifen1" class="tabicon"></icon-svg>签到</span>
+        <span slot="label" class="tabspan tabspan2"><icon-svg iconClass="jifen1" class="tabicon"></icon-svg>午安果</span>
         <sign-tab></sign-tab>
       </el-tab-pane>
     </el-tabs>

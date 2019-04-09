@@ -2,21 +2,24 @@
     <div>
         <h2>测试</h2>
         <div class="content">
-            {{this.coin}}
+            {{this.fruitnum}}
             下一个
-            {{this.moviepoints}}
+            <span>{{is_sign}}</span>
+            <p>{{range_min}}到{{range_max}}</p>
         </div>
     </div>
 </template>
 
 <script>
-import { getUserPoints, getPointslist } from 'api/user'
+import { fruitNum, signInfo } from 'api/user'
 export default {
   name: 'signTab',
   data () {
     return {
-      coin: '100',
-      moviepoints: ''
+      fruitnum: '100',
+      is_sign: '',
+      range_min: '',
+      range_max: ''
     }
   },
   mounted () {
@@ -24,13 +27,14 @@ export default {
   },
   methods: {
     async init () {
-      await getUserPoints({id: this.$store.getters.user.uid}).then(res => {
-        this.coin = res.points
+      await fruitNum({id: this.$store.getters.user.uid}).then(res => {
+        console.log(res)
       })
-      await getPointslist({id: this.$store.getters.user.uid}).then(res => {
-        this.moviepoints = res.app['0'].points
-        this.exchange_rate = res.app['0'].exchange_rate
-        this.exchangeid = res.app['0'].id
+      await signInfo({id: this.$store.getters.user.uid}).then(res => {
+        console.log(res)
+        this.is_sign = res.is_sign
+        this.range_min = res.range_min
+        this.range_max = res.range_max
       })
     }
   }
