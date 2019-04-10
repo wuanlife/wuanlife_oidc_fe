@@ -3,10 +3,10 @@
         <h2>您当前有午安果 <span>{{this.fruitnum}}</span></h2>
         <div class="content">
             <div v-if="sign_status">
-                <a @click="sign" class="before-sign">签到</a>
+                <a @click="sign" class="before-sign"><icon-svg iconClass="qiandao" class="sign-icon"></icon-svg>签到</a>
             </div>
             <div v-else>
-                <a class="after-sign">已签到</a>
+                <a class="after-sign"><icon-svg iconClass="yiqiandao" class="sign-icon"></icon-svg>已签到</a>
             </div>
             <p>每日签到可以获取{{range_min}}~{{range_max}}午安果</p>
         </div>
@@ -25,8 +25,8 @@ export default {
   name: 'signTab',
   data () {
     return {
-      fruitnum: '2500000',
-      sign_status: true, // 状态：可以签到
+      fruitnum: '0',
+      sign_status: false, // 状态：可以签到
       range_min: '',
       range_max: '',
       get_value: '',
@@ -87,10 +87,12 @@ export default {
           text-align: left;
           span {
               position: absolute;
-              right: 10px;
+              right: 0;
               display: inline-block;
+              width: 150px;
               font-size: 30px;
               color: #facd89;
+              text-align: center;
           }
       }
       .content {
@@ -104,7 +106,6 @@ export default {
               display: inline-block;
               width: 100px;
               height: 100px;
-              padding: 70px 0 0;
               background-color: #6c87f6;
               color: #fff;
               font-size: 12px;
@@ -120,6 +121,12 @@ export default {
               &.after-sign {
                   background-color: #bbc9fe;
                   box-shadow: 0 0 5px 3px #f6f6f6;
+              }
+              .sign-icon {
+                  display: block;
+                  width: 36px;
+                  height: 36px;
+                  margin: 24px auto 8px;
               }
           }
           p {

@@ -15,7 +15,8 @@ export default {
   },
   computed: {
     iconName () {
-      return `#icon-${this.iconClass}`
+      // return `#icon-${this.iconClass}` // 上一版本引用方法
+      return `#icon${this.iconClass}`
     }
   }
 }
