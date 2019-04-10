@@ -27,8 +27,8 @@
 </template>
 <script>
 import ChangepwdTab from './changepwd'
-// import PointsTab from './points'
-import SignTab from './sign'
+// import PointsTab from './points' // 旧的积分兑换午安果功能
+import SignTab from './sign' // 新增签到获得午安果
 import ProfileTab from './profile'
 
 export default {
@@ -39,8 +39,8 @@ export default {
   },
   components: {
     'changepwd-tab': ChangepwdTab,
-    // 'points-tab': PointsTab,
-    'sign-tab': SignTab,
+    // 'points-tab': PointsTab, // 旧的积分兑换午安果功能
+    'sign-tab': SignTab, // 新增签到获得午安果
     'profile-tab': ProfileTab
   },
 
