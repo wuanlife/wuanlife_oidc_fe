@@ -39,11 +39,9 @@ export default {
   methods: {
     async init () {
       await fruitNum({id: this.$store.getters.user.uid}).then(res => {
-        console.log(res)
         this.fruitnum = res.value
       })
       await signInfo({id: this.$store.getters.user.uid}).then(res => {
-        console.log(res)
         if (res.is_sign === 1) {
           this.sign_status = false
         } else {
@@ -55,7 +53,6 @@ export default {
     },
     async sign () {
       await signOnce({id: this.$store.getters.user.uid}).then(res => {
-        console.log(res)
         this.init()
         this.get_value = res.value // 获得午安果数量
         this.msg = true // 弹窗提示
