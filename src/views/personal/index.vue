@@ -53,7 +53,12 @@ export default {
     handleTabClick (tab, event) {
       console.log(tab, event)
       // window.location.replace(`/personal/)
-      this.$router.push({name: 'personalTab', params: {tab: tab.name}})
+      // this.$router.push({name: 'personalTab', params: {tab: tab.name}})
+      if (tab.name === 'points') {
+        this.$router.push({path: '/checkin'})
+      } else {
+        this.$router.push({name: 'personalTab', params: {tab: tab.name}})
+      }
     }
   }
 }
