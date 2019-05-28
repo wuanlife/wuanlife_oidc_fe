@@ -10,6 +10,7 @@ const Authorize = resolve => require.ensure([], () => resolve(require('../views/
 const FindPsw = resolve => require.ensure([], () => resolve(require('../views/findpsw/index')), 'FindPsw') // 找回密码
 const Resetpwd = resolve => require.ensure([], () => resolve(require('../views/resetpwd/index')), 'Resetpwd') // 重置密码
 const Personal = resolve => require.ensure([], () => resolve(require('../views/personal/index')), 'Personal')
+const Checkin = resolve => require.ensure([], () => resolve(require('../views/checkin/index')), 'Checkin')
 
 Vue.use(Router)
 
@@ -25,7 +26,7 @@ export const constantRouterMap = [
   {
     path: '/',
     component: Layout,
-    redirect: '/personal/profile'
+    redirect: '/checkin'
     // children: [{
     //   path: '/',
     //   component: Index,
@@ -62,6 +63,15 @@ export const constantRouterMap = [
     children: [{
       path: '',
       component: Resetpwd
+    }]
+  },
+  {
+    path: '/checkin',
+    component: Layout,
+    children: [{
+      path: '',
+      component: Checkin,
+      meta: { title: '午安网 - 过你想过的生活' }
     }]
   },
   {
